@@ -1,0 +1,7 @@
+{
+  "name": "JAP",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}

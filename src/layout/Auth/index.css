@@ -1,0 +1,53 @@
+.h-100{
+    height: 100%;
+}
+
+.img-logo{
+    height: 200px;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.text-left{
+    text-align: left;
+}
+
+.text-right{
+    text-align: right;
+}
+
+.mt-1{
+    margin-top: 1rem;
+}
+
+.mt-2{
+    margin-top: 2rem;
+}
+
+.w-100{
+    width: 100%;
+}
+
+.ml-1{
+    padding-left: 1rem;
+}
+
+.fs-1-5{
+    font-size: 15px !important;
+}
+
+.no-underline{
+    text-decoration: none;
+}
+
+.text-capitalize{
+    text-transform: capitalize;
+}
+
+.auth-main-background{
+    --background: #ddf8e8;
+}

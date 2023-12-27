@@ -11,6 +11,9 @@ import {
     IonItemDivider,
     IonIcon,
     IonCard,
+    IonRefresher,
+    RefresherEventDetail,
+    IonRefresherContent,
 } from "@ionic/react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -33,7 +36,7 @@ import CheckoutModal from "../../../components/CheckoutModal";
   .required();
 
 const Cart: React.FC = () => {
-    const {cart, cartLoading, removeCartItem, incrementProductQuantity, decrementProductQuantity} = useCart();
+    const {cart, cartLoading, removeCartItem, incrementProductQuantity, decrementProductQuantity, fetchCart} = useCart();
     const {toastSuccess} = useToast();
     const [loading, setLoading] = useState(false);
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -62,6 +65,12 @@ const Cart: React.FC = () => {
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen={false} forceOverscroll={false} style={{'--background':'#f9f9f9'}}>
+                <IonRefresher slot="fixed" onIonRefresh={(event: CustomEvent<RefresherEventDetail>)=>{
+                    auth.authenticated && fetchCart();
+                    event.detail.complete();
+                }}>
+                    <IonRefresherContent></IonRefresherContent>
+                </IonRefresher>
                 {auth.authenticated ? 
                 cartLoading ? <>
                     <LoadingPricingTable />

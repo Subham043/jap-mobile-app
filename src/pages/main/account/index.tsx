@@ -7,40 +7,56 @@ import {
     IonItem,
     IonLabel,
     IonIcon,
-    IonToast,
     IonSpinner,
 } from "@ionic/react";
-import { bagCheckOutline, bookmarkOutline, cogOutline, logOutOutline, personCircleOutline } from "ionicons/icons";
+import { bagCheckOutline, bookmarkOutline, cogOutline, imageOutline, logOutOutline, mailUnreadOutline, newspaperOutline, personCircleOutline } from "ionicons/icons";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
 import { axiosPublic } from "../../../../axios";
 import { api_routes } from "../../../helper/routes";
+import { useToast } from "../../../hooks/useToast";
+import { Browser } from "@capacitor/browser";
 
+const legal_pages = [
+    {
+        name: 'Shipping Policy',
+        link: 'https://jap.bio/shipping-policy'
+    },
+    {
+        name: 'Terms & Conditions',
+        link: 'https://jap.bio/terms-conditions'
+    },
+    {
+        name: 'Privacy Policy',
+        link: 'https://jap.bio/privacy-policy'
+    },
+    {
+        name: 'Return & Refund Policy',
+        link: 'https://jap.bio/return-refund'
+    },
+];
 
 const Account: React.FC = () => {
 
-    const {auth, logout} = useContext(AuthContext);
-    const [isToastOpen, setIsToastOpen] = useState<boolean>(false);
-    const [responseMessage, setResponseMessage] = useState<string>("");
+    const {logout} = useContext(AuthContext);
+    const {toastError, toastSuccess} = useToast();
     const [loading, setLoading] = useState<boolean>(false);
 
     const logoutHandler = async() => {
         setLoading(true);
         try {
-          await axiosPublic.post(api_routes.logout, {}, {
-            headers: {"Authorization" : `Bearer ${auth.token}`}
-          });
+          await axiosPublic.post(api_routes.logout, {});
           logout();
-          setResponseMessage('Logged out successfully.');
-          setIsToastOpen(true);
+          toastSuccess('Logged out successfully.');
         } catch (error: any) {
-          console.log(error);
-          setResponseMessage('Something went wrong. Please try again later!');
-          setIsToastOpen(true);
+          toastError('Something went wrong. Please try again later!');
         }finally {
             setLoading(false);
         }
+    }
+    const loadPage = async(url:string) =>{
+        await Browser.open({ url });
     }
     return (
         <IonPage>
@@ -74,6 +90,22 @@ const Account: React.FC = () => {
                         <IonIcon icon={bagCheckOutline} slot="start"></IonIcon>
                     </IonItem>
                 </Link>
+                <Link className="no-underline" to="/b2b-enquiry">
+                    <IonItem lines="full" detail={true}>
+                        <IonLabel>B2B Enquiry</IonLabel>
+                        <IonIcon icon={mailUnreadOutline} slot="start"></IonIcon>
+                    </IonItem>
+                </Link>
+                <IonItem lines="full" detail={true} onClick={()=>loadPage('https://jap.bio/gallery')}>
+                        <IonLabel>Gallery</IonLabel>
+                        <IonIcon icon={imageOutline} slot="start"></IonIcon>
+                </IonItem>
+                {
+                    legal_pages.map((item, i) => <IonItem lines="full" detail={true} onClick={()=>loadPage(item.link)} key={i}>
+                        <IonLabel>{item.name}</IonLabel>
+                        <IonIcon icon={newspaperOutline} slot="start"></IonIcon>
+                    </IonItem>)
+                }
                 {loading ? (
                     <IonItem lines="full" detail={true}>
                         <IonSpinner name="crescent" color={'success'}></IonSpinner>
@@ -84,22 +116,6 @@ const Account: React.FC = () => {
                         <IonIcon icon={logOutOutline} slot="start"></IonIcon>
                     </IonItem>
                 )}
-                
-                <IonToast
-                    isOpen={isToastOpen}
-                    message={responseMessage}
-                    onDidDismiss={() => setIsToastOpen(false)}
-                    duration={5000}
-                    buttons={[
-                    {
-                        text: "Close",
-                        handler: () => {
-                        setIsToastOpen(false);
-                        },
-                    },
-                    ]}
-                    layout="stacked"
-                ></IonToast>
 
             </IonContent>
         </IonPage>

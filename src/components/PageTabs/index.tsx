@@ -15,14 +15,39 @@ import ProductDetail from "../../pages/main/product/detail";
 import Profile from "../../pages/main/profile";
 import Setting from "../../pages/main/setting";
 import Wishlist from "../../pages/main/wishlist";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import Account from "../../pages/main/account";
 import { useCart } from "../../context/CartProvider2";
+import B2B from "../../pages/main/b2b";
+import { Network } from '@capacitor/network';
+import NoNetwork from "../NoNetwork";
 
 const PageTabs: React.FC = () => {
   const {auth} = useContext(AuthContext);
   const {cart } = useCart();
+  const [hasNetwork, setHasNetwork] = useState<boolean>(true);
+
+  useEffect(()=>{
+    let isMounted = true;
+    const logCurrentNetworkStatus = async () => {
+      const status = await Network.getStatus();
+      setHasNetwork(status.connected);
+    };
+    if(isMounted){
+      Network.addListener('networkStatusChange', async (status) => await logCurrentNetworkStatus());
+      logCurrentNetworkStatus()
+    }
+
+    return () => {
+      Network.removeAllListeners()
+      isMounted=false;
+    }
+  }, [])
+
+  if(!hasNetwork) {
+    return <NoNetwork />
+  }
 
   return (
     <IonApp>
@@ -41,6 +66,7 @@ const PageTabs: React.FC = () => {
             <Route exact path="/account" component={auth.authenticated ? Account : Login}></Route>
             <Route exact path="/profile" component={Profile}></Route>
             <Route exact path="/setting" component={Setting}></Route>
+            <Route exact path="/b2b-enquiry" component={B2B}></Route>
             <Route exact path="/orders" component={Order}></Route>
             <Route exact path="/orders/:receipt" component={OrderDetail}></Route>
             <Route exact path="/">

@@ -44,7 +44,7 @@ const Home: React.FC = () => {
             
             <CategorySegment />
 
-            <div className="content-main mt-2">
+            <div className="content-main mt-1">
               <h2>Products</h2>
             </div>
             <ProductSegment />

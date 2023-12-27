@@ -1,4 +1,4 @@
-import { IonPage, IonContent, IonImg, IonHeader, IonToolbar, IonButtons, IonBackButton, IonSpinner } from '@ionic/react';
+import { IonPage, IonContent, IonImg, IonHeader, IonToolbar, IonButtons, IonBackButton, IonSpinner, IonRefresher, IonRefresherContent, RefresherEventDetail } from '@ionic/react';
 import {axiosPublic} from '../../../../axios';
 import { api_routes } from '../../../helper/routes';
 import MainFooter from '../../../components/MainFooter';
@@ -18,7 +18,7 @@ const fetcher = (url: string) => axiosPublic.get(url).then((res) => res.data.cat
 const Category: React.FC<CategoryProps> = ({match}) => {
   
     const [imgLoading, setImgLoading] = useState<boolean>(true);
-    const { data:category, isLoading:loading } = useSWR<CategoryState>(api_routes.category+`/${match.params.slug}`, fetcher);
+    const { data:category, isLoading:loading, mutate } = useSWR<CategoryState>(api_routes.category+`/${match.params.slug}`, fetcher);
 
     return (
       <IonPage>
@@ -33,6 +33,13 @@ const Category: React.FC<CategoryProps> = ({match}) => {
           fullscreen={false}
           forceOverscroll={false}
         >
+          <IonRefresher slot="fixed" onIonRefresh={(event: CustomEvent<RefresherEventDetail>)=>{
+              mutate();
+              event.detail.complete();
+          }}>
+              <IonRefresherContent></IonRefresherContent>
+          </IonRefresher>
+
           {loading ? 
             <LoadingDetail /> :
             (category && <>

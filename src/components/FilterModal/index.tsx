@@ -68,7 +68,7 @@ const FilterModal: React.FC<Props> = ({isOpen, setIsOpen, segment, setSegment, s
   
 
     return (
-      <IonModal isOpen={isOpen} onDidDismiss={()=>setIsOpen(false)} initialBreakpoint={1} breakpoints={[0, 1]} className='filter-modal-main'>
+      <IonModal isOpen={isOpen} onDidDismiss={()=>setIsOpen(false)} initialBreakpoint={1} breakpoints={[0, 0.3, 0.5, 0.8, 1]} className='filter-modal-main'>
         <IonHeader>
           <IonToolbar>
             <IonTitle>Filters</IonTitle>

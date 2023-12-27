@@ -8,9 +8,8 @@ import {
   IonCol,
   IonList,
   IonSpinner,
-  IonToast,
 } from "@ionic/react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -19,6 +18,17 @@ import { axiosPublic } from "../../../../axios";
 import { api_routes } from "../../../helper/routes";
 import { useState } from "react";
 import Auth from "../../../layout/Auth";
+import { useToast } from "../../../hooks/useToast";
+
+const fields = [
+  {
+    placeholder: "Enter email",
+    label: "Email",
+    type: "email",
+    name: "email",
+    inputmode: "email",
+  },
+];
 
 const schema = yup
   .object({
@@ -27,9 +37,9 @@ const schema = yup
   .required();
 
 const ForgotPassword: React.FC = () => {
+  const history = useHistory();
   const [loading, setLoading] = useState(false);
-  const [responseMessage, setResponseMessage] = useState("");
-  const [isToastOpen, setIsToastOpen] = useState(false);
+  const {toastError, toastSuccess} = useToast();
 
   const {
     handleSubmit,
@@ -44,30 +54,18 @@ const ForgotPassword: React.FC = () => {
     resolver: yupResolver(schema),
   });
 
-  const fields = [
-    {
-      placeholder: "Enter email",
-      label: "Email",
-      type: "email",
-      name: "email",
-      inputmode: "email",
-    },
-  ];
-
   const onSubmit = async (data: any) => {
     setLoading(true);
     try {
       const response = await axiosPublic.post(api_routes.forgot_password, data);
-      setResponseMessage(response.data.message);
-      setIsToastOpen(true);
+      toastSuccess(response.data.message);
       reset({
         email: "",
       });
     } catch (error: any) {
       console.log(error);
       if (error?.response?.data?.message) {
-        setResponseMessage(error?.response?.data?.message);
-        setIsToastOpen(true);
+        toastError(error?.response?.data?.message);
       }
       if (error?.response?.data?.errors?.email) {
         setError("email", {
@@ -83,70 +81,49 @@ const ForgotPassword: React.FC = () => {
   return (
     <Auth>
         <IonCardHeader>
-        <IonText
-            color="success"
-            className="text-center text-capitalize"
-        >
-            <p>
-            Enter your email and instructions will be sent to you!
-            </p>
-        </IonText>
+          <IonText
+              color="success"
+              className="text-center text-capitalize"
+          >
+              <p>
+              Enter your email and instructions will be sent to you!
+              </p>
+          </IonText>
         </IonCardHeader>
 
         <IonCardContent>
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <IonList className="ion-no-padding">
-            {fields.map((item, i) => (
-                <Input
-                {...item}
-                register={register}
-                errors={errors}
-                key={i}
-                />
-            ))}
-            </IonList>
-            <IonButton
-            color="success"
-            type="submit"
-            expand="full"
-            shape="round"
-            className="mt-2"
-            >
-            {loading ? (
-                <IonSpinner name="crescent"></IonSpinner>
-            ) : (
-                "Reset Password"
-            )}
-            </IonButton>
-        </form>
-        <IonGrid className="mt-1">
-            <IonRow className="ion-align-items-center ion-justify-content-between">
-            <IonCol size="12">
-                <Link className="no-underline" to="/login">
-                <IonText color="dark">
-                    <p className="fs-1-5 text-center">
-                    <b>Remember your password?</b>
-                    </p>
-                </IonText>
-                </Link>
-            </IonCol>
-            </IonRow>
-        </IonGrid>
-        <IonToast
-            isOpen={isToastOpen}
-            message={responseMessage}
-            onDidDismiss={() => setIsToastOpen(false)}
-            duration={5000}
-            buttons={[
-            {
-                text: "Close",
-                handler: () => {
-                setIsToastOpen(false);
-                },
-            },
-            ]}
-            layout="stacked"
-        ></IonToast>
+          <form onSubmit={handleSubmit(onSubmit)}>
+              <IonList className="ion-no-padding">
+              {fields.map((item, i) => (
+                  <Input
+                  {...item}
+                  register={register}
+                  errors={errors}
+                  key={i}
+                  />
+              ))}
+              </IonList>
+              <IonButton
+              color="success"
+              type="submit"
+              expand="full"
+              shape="round"
+              className="mt-2"
+              >
+              {loading ? (
+                  <IonSpinner name="crescent"></IonSpinner>
+              ) : (
+                  "Reset Password"
+              )}
+              </IonButton>
+          </form>
+          <IonButton fill='clear' className="no-underline text-center w-100 p-0" onClick={()=>history.goBack()}>
+              <IonText color="dark">
+                  <p className="fs-1-5 text-center">
+                  <b>Remember your password?</b>
+                  </p>
+              </IonText>
+          </IonButton>
         </IonCardContent>
     </Auth>
               

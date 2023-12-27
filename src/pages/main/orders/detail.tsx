@@ -10,6 +10,9 @@ import {
     IonCol,
     IonImg,
     IonText,
+    IonRefresher,
+    IonRefresherContent,
+    RefresherEventDetail,
 } from "@ionic/react";
 import { useContext } from "react";
 import OrderItem from "../../../components/OrderItem";
@@ -31,13 +34,18 @@ interface OrderProps extends RouteComponentProps<{
 
 const OrderDetail: React.FC<OrderProps> = ({match}) => {
     const {auth} = useContext(AuthContext);
-    const { data:order, isLoading:loading } = useSWR<Order>(auth.authenticated ? api_routes.place_order_detail+`/${match.params.receipt}` : null, fetcher);
+    const { data:order, isLoading:loading, mutate } = useSWR<Order>(auth.authenticated ? api_routes.place_order_detail+`/${match.params.receipt}` : null, fetcher);
     
     return (
         <IonPage>
             <BackHeader title='Order Detail' link='/orders' />
             <IonContent fullscreen={false} forceOverscroll={false} style={{'--background':'#f9f9f9'}}>
-
+                <IonRefresher slot="fixed" onIonRefresh={(event: CustomEvent<RefresherEventDetail>)=>{
+                    auth.authenticated && mutate();
+                    event.detail.complete();
+                }}>
+                    <IonRefresherContent></IonRefresherContent>
+                </IonRefresher>
                 {
                     loading ? <>
                         <LoadingPricingTable />

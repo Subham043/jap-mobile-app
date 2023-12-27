@@ -1,11 +1,11 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { ChildrenType, Cart as CartAPIType } from "../helper/types";
 import { axiosPublic } from "../../axios";
 import { api_routes } from "../helper/routes";
 import { AuthContext } from "./AuthProvider";
 import useSWR, { useSWRConfig } from 'swr'
-
-const fetcher = (url: string) => axiosPublic.get(url).then((res) => res.data.cart);
+import { useToast } from "../hooks/useToast";
+import { useLogin } from "./LoginProvider";
 
 type CartUpdateDataType = {
   product_id: number,
@@ -41,6 +41,25 @@ export const useCart = () => useContext(CartContext2);
 
 const CartProvider2: React.FC<ChildrenType> = ({children}) => {
     const {auth} = useContext(AuthContext);
+    const {toastError, toastSuccess} = useToast();
+    const {toggleLoginModal} = useLogin();
+
+    const fetcher = useCallback(
+      async (url: string) => {
+        if(auth.authenticated){
+          const headers = {
+            headers: {
+              "Authorization" : `Bearer ${auth.token}`,
+              "Accept": 'application/json'
+            }
+          }
+          const res =  await axiosPublic.get(url,headers)
+          return res.data.cart;
+        }
+        return undefined;
+      },
+      [auth],
+    );
     
     const { data:cart, isLoading:cartLoading, mutate:mutateCartData } = useSWR<CartAPIType>(auth.authenticated ? api_routes.cart : null, fetcher);
     const { mutate } = useSWRConfig()
@@ -50,19 +69,23 @@ const CartProvider2: React.FC<ChildrenType> = ({children}) => {
     const updateCartData = async (data: CartAPIType) => {
       if(auth.authenticated){
         await mutateCartData(data);
+      }else{
+        toastError('Please login to add product to cart');
+        toggleLoginModal()
       }
     }
     
     const updateCart = async (data: CartUpdateDataType[]|[]) => {
       if(auth.authenticated){
         try {
-          const response = await axiosPublic.post(api_routes.cart, data.length>0 ? {data:data}: {}, {
-            headers: {"Authorization" : `Bearer ${auth.token}`}
-          });
+          const response = await axiosPublic.post(api_routes.cart, data.length>0 ? {data:data}: {});
           await mutateCartData(response.data.cart);
         } catch (error: any) {
           console.log(error);
         }
+      }else{
+        toastError('Please login to add product to cart');
+        toggleLoginModal()
       }
     }
 
@@ -75,7 +98,11 @@ const CartProvider2: React.FC<ChildrenType> = ({children}) => {
           await updateCart([...cart_main.map(item => {return {product_id:item.product_id, quantity: item.quantity}})])
         }else{
           await updateCart([{quantity:1, product_id: product_id},...cart_main.map(item => {return {product_id:item.product_id, quantity: item.quantity}})])
+          toastSuccess('Product Added To Cart');
         }
+      }else{
+        toastError('Please login to add product to cart');
+        toggleLoginModal()
       }
     }
     
@@ -87,11 +114,15 @@ const CartProvider2: React.FC<ChildrenType> = ({children}) => {
           if(cart_main[products_item_index].quantity===1){
             const cart_item_removed = cart_main.filter(item => item.product_id!==product_id)
             await updateCart([...cart_item_removed.map(item => {return {product_id:item.product_id, quantity: item.quantity}})])
+            toastSuccess('Product Removed From Cart');
           }else{
             cart_main[products_item_index].quantity = Math.max(1, cart_main[products_item_index].quantity-1)
             await updateCart([...cart_main.map(item => {return {product_id:item.product_id, quantity: item.quantity}})])
           }
         }
+      }else{
+        toastError('Please login to remove item from cart');
+        toggleLoginModal()
       }
     }
     
@@ -103,6 +134,9 @@ const CartProvider2: React.FC<ChildrenType> = ({children}) => {
           const cart_item_removed = cart_main.filter(item => item.product_id!==product_id)
           await updateCart([...cart_item_removed.map(item => {return {product_id:item.product_id, quantity: item.quantity}})])
         }
+      }else{
+        toastError('Please login to remove item from cart');
+        toggleLoginModal()
       }
     }
 

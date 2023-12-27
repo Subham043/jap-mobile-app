@@ -1,4 +1,4 @@
-import { IonPage, IonContent, IonHeader, IonToolbar, IonSearchbar, IonButton, IonIcon, IonButtons, SearchbarInputEventDetail, IonInfiniteScroll, IonInfiniteScrollContent, IonText, IonGrid, IonRow, IonCol } from '@ionic/react';
+import { IonPage, IonContent, IonHeader, IonToolbar, IonSearchbar, IonButton, IonIcon, IonButtons, SearchbarInputEventDetail, IonInfiniteScroll, IonInfiniteScrollContent, IonText, IonGrid, IonRow, IonCol, IonRefresher, IonRefresherContent, RefresherEventDetail } from '@ionic/react';
 import {axiosPublic} from '../../../../axios';
 import { api_routes } from '../../../helper/routes';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -54,7 +54,8 @@ const Product: React.FC = () => {
       data:productData,
       size:productSize,
       setSize:setProductSize,
-      isLoading:isProductLoading
+      isLoading:isProductLoading,
+      mutate
   } = useSWRInfinite<ProductSegmentState>((pageIndex, previousPageData)=>getProductKey(pageIndex, previousPageData), productFetcher, {
       initialSize:1,
       revalidateAll: false,
@@ -80,6 +81,13 @@ const Product: React.FC = () => {
           fullscreen={false}
           forceOverscroll={false}
         >
+          <IonRefresher slot="fixed" onIonRefresh={(event: CustomEvent<RefresherEventDetail>)=>{
+              mutate();
+              event.detail.complete();
+          }}>
+              <IonRefresherContent></IonRefresherContent>
+          </IonRefresher>
+
           <div className='ion-padding pt-0 pb-0'>
             <div className="content-main mt-2">
               <h2>Our Products</h2>

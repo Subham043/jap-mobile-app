@@ -7,7 +7,7 @@ import CategoryCard from "../CategoryCard";
 import {CategoryState} from '../../helper/types';
 import useSWRInfinite from "swr/infinite";
 
-const PAGE_SIZE = 20;
+const PAGE_SIZE = 6;
 
 const CategorySegment: React.FC = () => {
     const categoryRef = useRef<HTMLIonInfiniteScrollElement | null>(null);
@@ -27,8 +27,8 @@ const CategorySegment: React.FC = () => {
 
     const getCategoryKey = useCallback((pageIndex:any, previousPageData:any) => {
         if (previousPageData && previousPageData.length===0) {
-        setHasNextCategoryPage(false);
-        return null
+            setHasNextCategoryPage(false);
+            return null
         };
         return `${api_routes.categories}?total=${PAGE_SIZE}&page=${pageIndex+1}`;
     }, [])
@@ -75,7 +75,7 @@ const CategorySegment: React.FC = () => {
                 <p className="text-center mt-1">Oops! No categories available.</p>
             </IonText>}
             {isCategoryLoading && <LoadingCard />}
-            <IonInfiniteScroll
+            {(hasNextCategoryPage && categoryData && categoryData.flat().length>=PAGE_SIZE) && <IonInfiniteScroll
                 ref={categoryRef}
                 onIonInfinite={(ev) => {
                   if (ev.target.scrollTop + ev.target.offsetHeight>= ev.target.scrollHeight ){
@@ -83,8 +83,8 @@ const CategorySegment: React.FC = () => {
                   }
                 }}
               >
-                {hasNextCategoryPage && <IonInfiniteScrollContent loadingText="Please wait..." loadingSpinner="bubbles"></IonInfiniteScrollContent>}
-            </IonInfiniteScroll>
+                <IonInfiniteScrollContent loadingText="Please wait..." loadingSpinner="bubbles"></IonInfiniteScrollContent>
+            </IonInfiniteScroll>}
 
         </>
     );

@@ -1,11 +1,11 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useCallback, useContext } from "react";
 import { ChildrenType, Wishlist as WishlistAPIType } from "../helper/types";
 import { axiosPublic } from "../../axios";
 import { api_routes } from "../helper/routes";
 import { AuthContext } from "./AuthProvider";
 import useSWR, { useSWRConfig } from 'swr'
-
-const fetcher = (url: string) => axiosPublic.get(url).then((res) => res.data.wishlist);
+import { useLogin } from "./LoginProvider";
+import { useToast } from "../hooks/useToast";
 
 type WishlistUpdateDataType = number[]|[]
 
@@ -34,14 +34,35 @@ export const useWishlist = () => useContext(WishlistContext2);
 
 const WishlistProvider2: React.FC<ChildrenType> = ({children}) => {
     const {auth} = useContext(AuthContext);
+    const fetcher = useCallback(
+      async (url: string) => {
+        if(auth.authenticated){
+          const headers = {
+            headers: {
+              "Authorization" : `Bearer ${auth.token}`,
+              "Accept": 'application/json'
+            }
+          }
+          const res =  await axiosPublic.get(url,headers)
+          return res.data.wishlist;
+        }
+        return undefined;
+      },
+      [auth],
+    );
     const { data:wishlist, isLoading:wishlistLoading, mutate:mutateWishlistData } = useSWR<WishlistAPIType>(auth.authenticated ? api_routes.wishlist : null, fetcher);
     const { mutate } = useSWRConfig()
+    const {toastError} = useToast();
+    const {toggleLoginModal} = useLogin();
 
     const fetchWishlist = async () => {await mutate(api_routes.wishlist)}
 
     const updateWishlistData = async (data: WishlistAPIType) => {
       if(auth.authenticated){
         await mutateWishlistData(data);
+      }else{
+        toastError('Please login to add product to wishlist');
+        toggleLoginModal()
       }
     }
     
@@ -55,6 +76,9 @@ const WishlistProvider2: React.FC<ChildrenType> = ({children}) => {
         } catch (error: any) {
           console.log(error);
         }
+      }else{
+        toastError('Please login to add product to wishlist');
+        toggleLoginModal()
       }
     }
 
@@ -66,6 +90,9 @@ const WishlistProvider2: React.FC<ChildrenType> = ({children}) => {
           const wishlist_item_removed = wishlist_main.filter(item => item!==product_id)
           await updateWishlist([...wishlist_item_removed.map(item => item)])
         }
+      }else{
+        toastError('Please login to remove product from wishlist');
+        toggleLoginModal()
       }
     }
   

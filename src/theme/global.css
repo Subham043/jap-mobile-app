@@ -511,6 +511,13 @@ code {
     height: auto;
 }
 
+.auth-modal-background{
+    background-color: #ddf8e8;
+}
+.login-modal-main{
+    --height: auto;
+}
+
 .Toastify__toast-container{
     z-index: 9999999999;
 }

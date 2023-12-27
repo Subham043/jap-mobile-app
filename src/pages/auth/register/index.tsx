@@ -7,11 +7,9 @@ import {
   IonRow,
   IonCol,
   IonList,
-  IonToast,
   IonSpinner,
 } from "@ionic/react";
-import { isPlatform } from '@ionic/react';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -20,6 +18,46 @@ import { axiosPublic } from "../../../../axios";
 import { api_routes } from "../../../helper/routes";
 import { useState } from "react";
 import Auth from "../../../layout/Auth";
+import { useToast } from "../../../hooks/useToast";
+
+
+const fields = [
+  {
+    placeholder: "Enter name",
+    label: "Name",
+    type: "text",
+    name: "name",
+    inputmode: "text",
+  },
+  {
+    placeholder: "Enter email",
+    label: "Email",
+    type: "email",
+    name: "email",
+    inputmode: "email",
+  },
+  {
+    placeholder: "Enter phone",
+    label: "Phone",
+    type: "text",
+    name: "phone",
+    inputmode: "numeric",
+  },
+  {
+    placeholder: "Enter password",
+    label: "Password",
+    type: "password",
+    name: "password",
+    inputmode: "text",
+  },
+  {
+    placeholder: "Enter confirm password",
+    label: "Confirm Password",
+    type: "password",
+    name: "confirm_password",
+    inputmode: "text",
+  },
+];
 
 const schema = yup
   .object({
@@ -39,16 +77,13 @@ const schema = yup
   .required();
 
 const Register: React.FC = () => {
+  const history = useHistory();
   const [loading, setLoading] = useState(false);
-  const [responseMessage, setResponseMessage] = useState("");
-  const [isToastOpen, setIsToastOpen] = useState(false);
+  const {toastError, toastSuccess} = useToast();
 
   const {
     handleSubmit,
-    control,
-    setValue,
     register,
-    getValues,
     reset,
     setError,
     formState: { errors },
@@ -56,50 +91,11 @@ const Register: React.FC = () => {
     resolver: yupResolver(schema),
   });
 
-  const fields = [
-    {
-      placeholder: "Enter name",
-      label: "Name",
-      type: "text",
-      name: "name",
-      inputmode: "text",
-    },
-    {
-      placeholder: "Enter email",
-      label: "Email",
-      type: "email",
-      name: "email",
-      inputmode: "email",
-    },
-    {
-      placeholder: "Enter phone",
-      label: "Phone",
-      type: "text",
-      name: "phone",
-      inputmode: "numeric",
-    },
-    {
-      placeholder: "Enter password",
-      label: "Password",
-      type: "password",
-      name: "password",
-      inputmode: "text",
-    },
-    {
-      placeholder: "Enter confirm password",
-      label: "Confirm Password",
-      type: "password",
-      name: "confirm_password",
-      inputmode: "text",
-    },
-  ];
-
   const onSubmit = async (data: any) => {
     setLoading(true);
     try {
       const response = await axiosPublic.post(api_routes.register, data);
-      setResponseMessage(response.data.message);
-      setIsToastOpen(true);
+      toastSuccess(response.data.message);
       reset({
         name: "",
         phone: "",
@@ -110,8 +106,7 @@ const Register: React.FC = () => {
     } catch (error: any) {
       console.log(error);
       if (error?.response?.data?.message) {
-        setResponseMessage(error?.response?.data?.message);
-        setIsToastOpen(true);
+        toastError(error?.response?.data?.message);
       }
       if (error?.response?.data?.errors?.name) {
         setError("name", {
@@ -157,59 +152,38 @@ const Register: React.FC = () => {
         </IonCardHeader>
 
         <IonCardContent>
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <IonList className="ion-no-padding">
-            {fields.map((item, i) => (
-                <Input
-                {...item}
-                register={register}
-                errors={errors}
-                key={i}
-                />
-            ))}
-            </IonList>
-            <IonButton
-            color="success"
-            type="submit"
-            expand="full"
-            shape="round"
-            className="mt-2"
-            >
-            {loading ? (
-                <IonSpinner name="crescent"></IonSpinner>
-            ) : (
-                "Register"
-            )}
-            </IonButton>
-        </form>
-        <IonGrid className="mt-1">
-            <IonRow className="ion-align-items-center ion-justify-content-between">
-            <IonCol size="12">
-                <Link className="no-underline" to="/login">
-                <IonText color="dark">
-                    <p className="fs-1-5 text-center">
-                    <b>Already have an account?</b>
-                    </p>
-                </IonText>
-                </Link>
-            </IonCol>
-            </IonRow>
-        </IonGrid>
-        <IonToast
-            isOpen={isToastOpen}
-            message={responseMessage}
-            onDidDismiss={() => setIsToastOpen(false)}
-            duration={5000}
-            buttons={[
-            {
-                text: "Close",
-                handler: () => {
-                setIsToastOpen(false);
-                },
-            },
-            ]}
-            layout="stacked"
-        ></IonToast>
+          <form onSubmit={handleSubmit(onSubmit)}>
+              <IonList className="ion-no-padding">
+              {fields.map((item, i) => (
+                  <Input
+                  {...item}
+                  register={register}
+                  errors={errors}
+                  key={i}
+                  />
+              ))}
+              </IonList>
+              <IonButton
+              color="success"
+              type="submit"
+              expand="full"
+              shape="round"
+              className="mt-2"
+              >
+              {loading ? (
+                  <IonSpinner name="crescent"></IonSpinner>
+              ) : (
+                  "Register"
+              )}
+              </IonButton>
+          </form>
+          <IonButton fill='clear' className="no-underline text-center w-100 p-0" onClick={()=>history.goBack()}>
+            <IonText color="dark">
+                <p className="fs-1-5 text-center">
+                <b>Already have an account?</b>
+                </p>
+            </IonText>
+          </IonButton>
         </IonCardContent>
     </Auth>
               

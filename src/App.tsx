@@ -38,6 +38,7 @@ import { ToastContainer } from 'react-toastify';
 import SwrLayout from './layout/SwrLayout';
 import CartProvider2 from './context/CartProvider2';
 import WishlistProvider2 from './context/WishlistProvider2';
+import LoginProvider from './context/LoginProvider';
 
 setupIonicReact();
 
@@ -45,12 +46,14 @@ const App: React.FC = () => {
   return (
     <AuthProvider>
       <SwrLayout>
-        <CartProvider2>
-          <WishlistProvider2>
-            <PageTabs />
-            <ToastContainer />
-          </WishlistProvider2>
-        </CartProvider2>
+        <LoginProvider>
+          <CartProvider2>
+            <WishlistProvider2>
+              <PageTabs />
+              <ToastContainer />
+            </WishlistProvider2>
+          </CartProvider2>
+        </LoginProvider>
       </SwrLayout>
     </AuthProvider>
   )

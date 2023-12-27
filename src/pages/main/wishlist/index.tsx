@@ -2,6 +2,9 @@ import {
     IonPage,
     IonContent,
     IonCard,
+    IonRefresher,
+    IonRefresherContent,
+    RefresherEventDetail,
 } from "@ionic/react";
 import { useState } from "react";
 import EmptyCart from "../../../components/EmptyCart";
@@ -13,7 +16,7 @@ import { useToast } from "../../../hooks/useToast";
 
 const Wishlist: React.FC = () => {
     const [loading, setLoading] = useState(false);
-    const {wishlist, wishlistLoading, removeWishlistItem} = useWishlist();
+    const {wishlist, wishlistLoading, removeWishlistItem, fetchWishlist} = useWishlist();
     const {toastSuccess} = useToast();
 
     const removeWishlistHandler = async(product_id:number) => {  
@@ -32,6 +35,12 @@ const Wishlist: React.FC = () => {
         <IonPage>
             <BackHeader title='Wishlist' link='/account' />
             <IonContent fullscreen={false} forceOverscroll={false} style={{'--background':'#f9f9f9'}}>
+                <IonRefresher slot="fixed" onIonRefresh={(event: CustomEvent<RefresherEventDetail>)=>{
+                    fetchWishlist();
+                    event.detail.complete();
+                }}>
+                    <IonRefresherContent></IonRefresherContent>
+                </IonRefresher>
                 {wishlistLoading ? <>
                     <LoadingPricingTable />
                     <LoadingPricingTable />

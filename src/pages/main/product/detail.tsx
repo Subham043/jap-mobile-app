@@ -1,4 +1,4 @@
-import { IonPage, IonContent, ScrollDetail, IonButton, IonCol, IonIcon, IonItemDivider, IonRow, IonText, IonCard, IonSpinner } from '@ionic/react';
+import { IonPage, IonContent, ScrollDetail, IonButton, IonCol, IonIcon, IonItemDivider, IonRow, IonText, IonCard, IonSpinner, IonRefresher, IonRefresherContent, RefresherEventDetail } from '@ionic/react';
 import { RouteComponentProps } from 'react-router-dom';
 import {axiosPublic} from '../../../../axios';
 import { api_routes } from '../../../helper/routes';
@@ -26,7 +26,7 @@ interface ProductProps extends RouteComponentProps<{
 
 const ProductDetail: React.FC<ProductProps> = ({match}) => {
 
-    const { data:product, isLoading:productLoading } = useSWR<ProductSegmentState>(match.params.slug ? api_routes.product+`/${match.params.slug}` : null, fetcher);
+    const { data:product, isLoading:productLoading, mutate } = useSWR<ProductSegmentState>(match.params.slug ? api_routes.product+`/${match.params.slug}` : null, fetcher);
     const ref = useRef<HTMLDivElement|null>(null)
     const {wishlist, updateWishlist} = useWishlist();
     const {cart, incrementProductQuantity, decrementProductQuantity } = useCart();
@@ -86,6 +86,13 @@ const ProductDetail: React.FC<ProductProps> = ({match}) => {
           onIonScroll={handleScroll}
           style={{'--background':'#f9f9f9'}}
         >
+            <IonRefresher slot="fixed" onIonRefresh={(event: CustomEvent<RefresherEventDetail>)=>{
+                mutate();
+                event.detail.complete();
+            }}>
+                <IonRefresherContent></IonRefresherContent>
+            </IonRefresher>
+
             {productLoading ? <>
                 <LoadingDetail />
                 <LoadingPricingTable />

@@ -3,6 +3,7 @@ import { AuthType, ChildrenType } from "../helper/types";
 import { GetResult, Preferences } from '@capacitor/preferences';
 import { axiosPublic } from "../../axios";
 import { api_routes } from "../helper/routes";
+import { useIonLoading } from "@ionic/react";
 
 const authData = {
   authenticated: false,
@@ -40,6 +41,7 @@ export const useAuth = () => useContext(AuthContext) as AuthContextType;
 
 
 const AuthProvider: React.FC<ChildrenType> = ({children}) => {
+    const [present, dismiss] = useIonLoading();
     const [auth, setAuthDetails] = useState<AType>({
       auth:authData
     });
@@ -68,21 +70,29 @@ const AuthProvider: React.FC<ChildrenType> = ({children}) => {
     
     useEffect(() => {
       let isMounted = true;
-      axiosPublic.interceptors.request.use(
-        config => {
-            if(!config.headers['authorization'] && auth.auth.authenticated===true){
-              config.headers['authorization'] = `Bearer ${auth.auth.token}`;
-            }
-            return config;
-        },
-        (error) => Promise.reject(error)
-      );
-      
+      const configSetter = async () => {
+        try {
+          await present({
+            message: 'Please wait...',
+          });
+          axiosPublic.interceptors.request.use(
+            config => {
+                if(!config.headers['authorization'] && auth.auth.authenticated===true){
+                  config.headers['authorization'] = `Bearer ${auth.auth.token}`;
+                }
+                return config;
+            },
+            (error) => Promise.reject(error)
+          );
+        } catch (error) {} finally{
+          await dismiss()
+        }
+      }
+      (isMounted && auth.auth.authenticated) && configSetter()
       return () => {isMounted=false}
     }, [auth.auth.authenticated])
 
     const getUserDetails = async (auth:AType):Promise<void> => {
-      
       const headers = {
         headers: {
           "Authorization" : `Bearer ${auth.auth.token}`,
@@ -96,7 +106,16 @@ const AuthProvider: React.FC<ChildrenType> = ({children}) => {
           token: auth.auth.token,
           token_type: auth.auth.token_type,
           user: response.data.user
-        }};        
+        }};     
+        axiosPublic.interceptors.request.use(
+          config => {
+              if(!config.headers['authorization'] && data.auth.authenticated===true){
+                config.headers['authorization'] = `Bearer ${data.auth.token}`;
+              }
+              return config;
+          },
+          (error) => Promise.reject(error)
+        );   
         setAuth({...data})
       } catch (error) {}
     }

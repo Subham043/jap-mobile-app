@@ -7,7 +7,6 @@ import {
   IonRow,
   IonCol,
   IonList,
-  IonToast,
   IonSpinner,
 } from "@ionic/react";
 import { Link } from "react-router-dom";
@@ -20,6 +19,7 @@ import { api_routes } from "../../../helper/routes";
 import { useContext, useState } from "react";
 import Auth from "../../../layout/Auth";
 import { AuthContext } from "../../../context/AuthProvider";
+import { useToast } from "../../../hooks/useToast";
 
 const schema = yup
   .object({
@@ -30,16 +30,12 @@ const schema = yup
 
 const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
-  const [responseMessage, setResponseMessage] = useState("");
-  const [isToastOpen, setIsToastOpen] = useState(false);
   const {setAuth} = useContext(AuthContext);
+  const {toastError, toastSuccess} = useToast();
 
   const {
     handleSubmit,
-    control,
-    setValue,
     register,
-    getValues,
     reset,
     setError,
     formState: { errors },
@@ -68,8 +64,7 @@ const Login: React.FC = () => {
     setLoading(true);
     try {
       const response = await axiosPublic.post(api_routes.login, data);
-      setResponseMessage(response.data.message);
-      setIsToastOpen(true);
+      toastSuccess(response.data.message);
       reset({
         email: "",
         password: "",
@@ -81,10 +76,8 @@ const Login: React.FC = () => {
         user: response.data.user
       }})
     } catch (error: any) {
-      console.log(error);
       if (error?.response?.data?.message) {
-        setResponseMessage(error?.response?.data?.message);
-        setIsToastOpen(true);
+        toastError(error?.response?.data?.message);
       }
       if (error?.response?.data?.errors?.email) {
         setError("email", {
@@ -160,21 +153,6 @@ const Login: React.FC = () => {
             </IonCol>
             </IonRow>
         </IonGrid>
-        <IonToast
-            isOpen={isToastOpen}
-            message={responseMessage}
-            onDidDismiss={() => setIsToastOpen(false)}
-            duration={5000}
-            buttons={[
-            {
-                text: "Close",
-                handler: () => {
-                setIsToastOpen(false);
-                },
-            },
-            ]}
-            layout="stacked"
-        ></IonToast>
         </IonCardContent>
     </Auth>
   );

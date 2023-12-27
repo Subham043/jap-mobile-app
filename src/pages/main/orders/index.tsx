@@ -4,6 +4,9 @@ import {
     IonText,
     IonInfiniteScroll,
     IonInfiniteScrollContent,
+    IonRefresher,
+    RefresherEventDetail,
+    IonRefresherContent,
 } from "@ionic/react";
 import BackHeader from "../../../components/BackHeader";
 import OrderCard from "../../../components/OrderCard";
@@ -14,6 +17,7 @@ import { axiosPublic } from "../../../../axios";
 import useSWRInfinite from "swr/infinite";
 import LoadingCard from "../../../components/LoadingCard";
 import { AuthContext } from "../../../context/AuthProvider";
+import { chevronDownCircleOutline } from "ionicons/icons";
 
 const PAGE_SIZE = 20;
 
@@ -46,7 +50,8 @@ const Order: React.FC = () => {
           data,
           size,
           setSize,
-          isLoading
+          isLoading,
+          mutate
     } = useSWRInfinite<OrderType>(getOrderKey, ordersFetcher, {
           initialSize:1,
           revalidateAll: false,
@@ -60,6 +65,12 @@ const Order: React.FC = () => {
         <IonPage>
             <BackHeader title='Orders' link='/account' />
             <IonContent fullscreen={false} forceOverscroll={false}>
+                <IonRefresher slot="fixed" onIonRefresh={(event: CustomEvent<RefresherEventDetail>)=>{
+                    auth.authenticated && mutate();
+                    event.detail.complete();
+                }}>
+                    <IonRefresherContent></IonRefresherContent>
+                </IonRefresher>
                 <div className="order-card-wrapper">
                     {
                         (data ? data.flat(): []).map((item, i) => <OrderCard {...item} key={i} />)

@@ -28,21 +28,6 @@ const schema = yup
   })
   .required();
 
-const Login: React.FC = () => {
-  const [loading, setLoading] = useState(false);
-  const {setAuth} = useContext(AuthContext);
-  const {toastError, toastSuccess} = useToast();
-
-  const {
-    handleSubmit,
-    register,
-    reset,
-    setError,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
-
   const fields = [
     {
       placeholder: "Enter email",
@@ -59,6 +44,21 @@ const Login: React.FC = () => {
       inputmode: "text",
     },
   ];
+
+const Login: React.FC = () => {
+  const [loading, setLoading] = useState(false);
+  const {setAuth} = useContext(AuthContext);
+  const {toastError, toastSuccess} = useToast();
+
+  const {
+    handleSubmit,
+    register,
+    reset,
+    setError,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   const onSubmit = async (data: any) => {
     setLoading(true);

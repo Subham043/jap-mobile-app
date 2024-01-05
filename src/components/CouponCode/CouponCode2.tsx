@@ -59,7 +59,7 @@ const CouponCode2: React.FC<Props> = ({couponForm}) => {
     };
 
     return (
-        <div className='page-padding cart-coupon-code-container'>
+        <div className='cart-coupon-code-container'>
             <form onSubmit={couponForm.handleSubmit(onCouponSubmitHandler)}>
                 <IonRow className="ion-align-items-center ion-justify-content-between p-0 w-100">
                     <IonCol

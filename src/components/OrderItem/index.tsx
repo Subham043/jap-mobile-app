@@ -22,7 +22,7 @@ const OrderItem: React.FC<CartProducts> = ({featured_image_link, name, weight, q
                         <IonImg alt="product" className='cart-card-item-img order-item-img' src={featured_image_link} onIonImgDidLoad={()=>setImgLoading(false)} />
                         <IonText color="dark" class='order-item-text'>
                             <p className="cart-card-item-text order-item-name">{name}</p>
-                            <p className="cart-card-item-price"><b>&#8377;{discounted_price} / {weight}</b></p>
+                            <p className="cart-card-item-price">&#8377;{discounted_price} / {weight}</p>
                         </IonText>
                     </div>
                 </IonCol>
@@ -36,7 +36,7 @@ const OrderItem: React.FC<CartProducts> = ({featured_image_link, name, weight, q
                     size="2"
                     className='text-right'
                 >
-                    <p className='order-detail-price-text'>&#8377;{total_quantity_price}</p>
+                    <p className='order-detail-price-text'><b>&#8377;{total_quantity_price}</b></p>
                 </IonCol>
             </IonRow>
         </IonItemDivider>

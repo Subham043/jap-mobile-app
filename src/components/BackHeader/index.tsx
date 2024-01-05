@@ -8,7 +8,7 @@ type Props = {
 const BackHeader: React.FC<Props> = ({title, link}) => {
     return (
         <IonHeader>
-            <IonToolbar className='main-header-background'>
+            <IonToolbar mode="ios" className='main-header-background'>
               <IonButtons slot="start">
                 <IonBackButton defaultHref={link} color='success'></IonBackButton>
               </IonButtons>

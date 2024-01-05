@@ -43,7 +43,7 @@ const Home2: React.FC = () => {
           </div>
           <div ref={ref} className={`ion-padding searchbar-home-sticky ${showSubHeader ? 'searchbar-home-sticky-active' : ''}`}>
             <Link to='/products' className='searchbar-home-btn'>
-              <h3>Search Anything</h3>
+              <h3>Search anything</h3>
               <IonIcon icon={searchOutline} className='searchbar-home-icon'></IonIcon>
             </Link>
           </div>

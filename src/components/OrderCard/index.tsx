@@ -7,8 +7,8 @@ import './OrderCard.css';
 const OrderCard: React.FC<Order> = ({receipt, total_price_with_coupon_dicount, created_at, order_status, products, id}) => {
     const productNames = useMemo(() => products.map(item => item.name).join(', '), [id]);
     
-    return <Link className='no-underline' to={`/orders/${receipt}`}>
-        <div className='order-card'>
+    return <Link className='order-card-item-main-container no-underline w-100' to={`/orders/${receipt}`}>
+        <div className='order-card page-padding'>
             <IonRow className="ion-justify-content-between w-100">
                 <IonCol
                     size="9"
@@ -45,7 +45,7 @@ const OrderCard: React.FC<Order> = ({receipt, total_price_with_coupon_dicount, c
                     size="3"
                     className='text-right'
                 >
-                    <IonBadge color="dark">{order_status}</IonBadge>
+                    <IonBadge color="success">{order_status}</IonBadge>
                 </IonCol>
             </IonRow>
         </div>

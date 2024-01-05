@@ -2,14 +2,8 @@ import {
     IonPage,
     IonContent,
     IonItem,
-    IonCard,
     IonIcon,
     IonLabel,
-    IonItemDivider,
-    IonRow,
-    IonCol,
-    IonImg,
-    IonText,
     IonRefresher,
     IonRefresherContent,
     RefresherEventDetail,
@@ -17,7 +11,7 @@ import {
 import { useContext } from "react";
 import OrderItem from "../../../components/OrderItem";
 import BackHeader from "../../../components/BackHeader";
-import { callOutline, homeOutline, locationOutline, mailOutline, personOutline } from "ionicons/icons";
+import { callOutline, locationOutline, mailOutline, personOutline } from "ionicons/icons";
 import { RouteComponentProps } from "react-router";
 import { api_routes } from "../../../helper/routes";
 import { axiosPublic } from "../../../../axios";

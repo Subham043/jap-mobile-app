@@ -1,11 +1,10 @@
-import { IonPage, IonContent, ScrollDetail, IonButton, IonCol, IonIcon, IonItemDivider, IonRow, IonText, IonCard, IonSpinner, IonRefresher, IonRefresherContent, RefresherEventDetail, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle } from '@ionic/react';
+import { IonPage, IonContent, ScrollDetail, IonButton, IonCol, IonIcon, IonItemDivider, IonRow, IonText, IonSpinner, IonRefresher, IonRefresherContent, RefresherEventDetail, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle } from '@ionic/react';
 import { RouteComponentProps } from 'react-router-dom';
 import {axiosPublic} from '../../../../axios';
 import { api_routes } from '../../../helper/routes';
 import { useCallback, useRef, useState } from 'react';
 import MainFooter from '../../../components/MainFooter';
 import { bookmarkOutline } from 'ionicons/icons';
-import BackHeader from '../../../components/BackHeader';
 import Slider from '../../../components/Slider';
 import { ProductSegmentState } from '../../../helper/types';
 import LoadingDetail from '../../../components/LoadingDetail';
@@ -16,7 +15,6 @@ import { useCart } from '../../../context/CartProvider2';
 import { useToast } from '../../../hooks/useToast';
 import useSWR from 'swr'
 import { useWishlist } from '../../../context/WishlistProvider2';
-import CheckPincode from '../../../components/CheckPincode';
 import CheckPincode2 from '../../../components/CheckPincode/CheckPincode2';
 
 const fetcher = (url: string) => axiosPublic.get(url).then((res) => res.data.product);

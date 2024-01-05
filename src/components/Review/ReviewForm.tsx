@@ -1,5 +1,5 @@
 import { ErrorMessage } from "@hookform/error-message";
-import { IonButton, IonCard, IonItem, IonLabel, IonList, IonModal, IonSelect, IonSelectOption, IonSpinner, IonTextarea } from "@ionic/react";
+import { IonButton, IonItem, IonLabel, IonList, IonModal, IonSelect, IonSelectOption, IonSpinner, IonTextarea } from "@ionic/react";
 import Input from "../Input";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";

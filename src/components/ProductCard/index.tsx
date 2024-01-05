@@ -1,4 +1,4 @@
-import { IonButton, IonCard, IonCardHeader, IonImg, IonSpinner, IonText } from "@ionic/react";
+import { IonCard, IonCardHeader, IonImg, IonSpinner, IonText } from "@ionic/react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import './ProductCard.css'

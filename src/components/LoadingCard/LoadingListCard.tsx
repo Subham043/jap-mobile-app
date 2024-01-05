@@ -1,4 +1,4 @@
-import { IonCard, IonCardHeader, IonCol, IonGrid, IonImg, IonRow, IonSkeletonText, IonText, IonThumbnail } from "@ionic/react";
+import { IonCard, IonCol, IonGrid, IonRow, IonSkeletonText, IonThumbnail } from "@ionic/react";
 
 const arr = [1,2,3,4]
 const LoadingListCard: React.FC = () => {

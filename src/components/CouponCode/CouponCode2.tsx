@@ -5,7 +5,6 @@ import {
     IonItem,
     IonIcon,
     IonInput,
-    IonCard,
     IonSpinner,
 } from "@ionic/react";
 import { UseFormReturn } from "react-hook-form";

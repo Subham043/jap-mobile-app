@@ -1,4 +1,4 @@
-import { IonButton, IonCol, IonIcon, IonRow, IonInput, IonItem, IonCard, IonSpinner } from '@ionic/react';
+import { IonButton, IonCol, IonIcon, IonRow, IonInput, IonItem, IonSpinner } from '@ionic/react';
 import { useState } from 'react';
 import { informationCircleOutline } from 'ionicons/icons';
 import * as yup from "yup";

@@ -1,7 +1,6 @@
 import {
     IonPage,
     IonContent,
-    IonCard,
     IonRefresher,
     IonRefresherContent,
     RefresherEventDetail,
@@ -46,16 +45,13 @@ const Wishlist: React.FC = () => {
                     <LoadingPricingTable />
                 </>: (wishlist && wishlist.products.length>0) ? <>
                 
-                <IonCard className="mt-2">
-                    <div className='ion-padding pt-0 pb-2'>
-                        <div className="content-main mt-1">
-                            <h6>Wishlist Items</h6>
-                        </div>
+                <div className="page-padding mt-1 mb-1">
+                    <div>
+                        {
+                            wishlist.products.map((item, i) => <WishlistItem {...item} deleteHandler={removeWishlistHandler} loading={loading} key={i} />)
+                        }
                     </div>
-                    {
-                        wishlist.products.map((item, i) => <WishlistItem {...item} deleteHandler={removeWishlistHandler} loading={loading} key={i} />)
-                    }
-                </IonCard>
+                </div>
 
 
             </> : <EmptyCart type="wishlist" />}

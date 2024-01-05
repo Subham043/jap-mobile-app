@@ -1,4 +1,4 @@
-import { IonContent, IonCard, IonPage, IonGrid, IonRow, IonCol, IonImg, IonSpinner } from '@ionic/react';
+import { IonContent, IonPage, IonGrid, IonRow, IonCol, IonImg, IonSpinner } from '@ionic/react';
 import './index.css';
 import { ReactNode, useState } from 'react';
 

@@ -78,6 +78,7 @@ export interface WishlistProducts<> {
     discounted_price: number;
     image_alt?: string;
     image_title?: string;
+    weight: string;
     in_stock: boolean;
     inventory: number;
     is_best_sale: boolean;

@@ -1,4 +1,4 @@
-import { IonItemGroup, IonItemDivider, IonRow, IonCol, IonLabel, IonButton, IonIcon, IonImg, IonText, IonSpinner } from "@ionic/react";
+import { IonRow, IonCol, IonButton, IonIcon, IonImg, IonSpinner } from "@ionic/react";
 import { trashOutline } from "ionicons/icons";
 import { useState } from "react";
 import CartQuantityMain from "../CartQuantityMain";

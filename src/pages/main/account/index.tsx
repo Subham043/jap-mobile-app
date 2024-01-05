@@ -13,7 +13,7 @@ import {
     IonCol,
     IonButton,
 } from "@ionic/react";
-import { bagCheckOutline, bookmarkOutline, cogOutline, imageOutline, logOutOutline, mailUnreadOutline, newspaperOutline, personCircleOutline } from "ionicons/icons";
+import { bagCheckOutline, bookmarkOutline, cogOutline, imageOutline, logOutOutline, mailUnreadOutline, newspaperOutline } from "ionicons/icons";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";

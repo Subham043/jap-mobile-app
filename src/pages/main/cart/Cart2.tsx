@@ -9,7 +9,6 @@ import {
     IonTitle,
     IonItemDivider,
     IonIcon,
-    IonCard,
     IonRefresher,
     RefresherEventDetail,
     IonRefresherContent,

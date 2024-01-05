@@ -1,11 +1,9 @@
 import {
     IonPage,
     IonContent,
-    IonCard,
     IonButton,
     IonList,
     IonSpinner,
-    IonCardContent,
     IonItem,
     IonIcon,
     IonLabel,
@@ -303,101 +301,106 @@ const B2B: React.FC = () => {
         <IonPage>
             <BackHeader title='B2B Enquiry' link='/account' />
             <IonContent fullscreen={false} forceOverscroll={false}>
-                <IonCard>
-                    <IonItem lines="inset">
-                        <IonIcon icon={mailOutline} slot="start" className='order-detail-billing-icon'></IonIcon>
-                        <IonLabel>
-                            <p className='order-detail-personal-info'>operations@jap.bio</p>
-                        </IonLabel>
-                    </IonItem>
-                    <IonItem lines="inset">
-                        <IonIcon icon={callOutline} slot="start" className='order-detail-billing-icon'></IonIcon>
-                        <IonLabel>
-                            <p className='order-detail-personal-info'>+91-9207300055</p>
-                        </IonLabel>
-                    </IonItem>
-                    <IonItem lines="inset">
-                        <IonIcon icon={locationOutline} slot="start" className='order-detail-billing-icon'></IonIcon>
-                        <IonLabel className="ion-text-wrap">
-                            <p className='order-detail-personal-info'>2, OVH ROAD, BASAVANAGUDI, BENGALURU, Pin - 560004</p>
-                        </IonLabel>
-                    </IonItem>
-                </IonCard>
-                <IonCard>
-                    <div className='ion-padding pt-0 pb-0'>
-                        <div className="content-main mt-1">
-                            <h6>Drop Your Thoughts</h6>
-                        </div>
+              <div className="page-padding mt-1">
+                <div className="product-detail-main-specification">
+                    <div className="product-detail-main-content-heading">
+                        <h6>Contact Information</h6>
                     </div>
-                    <IonCardContent className="pt-0">
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                            <IonList className="ion-no-padding">
-                            {fields.map((item, i) => (
-                                <Input
-                                    {...item}
-                                    register={register}
+
+                    <div>
+                      <IonItem lines="inset">
+                          <IonIcon icon={mailOutline} slot="start" className='order-detail-billing-icon'></IonIcon>
+                          <IonLabel>
+                              <p className='order-detail-personal-info'>operations@jap.bio</p>
+                          </IonLabel>
+                      </IonItem>
+                      <IonItem lines="inset">
+                          <IonIcon icon={callOutline} slot="start" className='order-detail-billing-icon'></IonIcon>
+                          <IonLabel>
+                              <p className='order-detail-personal-info'>+91-9207300055</p>
+                          </IonLabel>
+                      </IonItem>
+                      <IonItem lines="inset">
+                          <IonIcon icon={locationOutline} slot="start" className='order-detail-billing-icon'></IonIcon>
+                          <IonLabel className="ion-text-wrap">
+                              <p className='order-detail-personal-info'>2, OVH ROAD, BASAVANAGUDI, BENGALURU, Pin - 560004</p>
+                          </IonLabel>
+                      </IonItem>
+                    </div>
+                </div>
+                <div className="product-detail-main-specification">
+                    <div className="product-detail-main-content-heading">
+                        <h6>Drop Your Thoughts</h6>
+                    </div>
+
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <IonList className="ion-no-padding">
+                        {fields.map((item, i) => (
+                            <Input
+                                {...item}
+                                register={register}
+                                errors={errors}
+                                key={i}
+                            />
+                        ))}
+                        </IonList>
+                        <IonList className="ion-no-padding">
+                            <>
+                                <IonItem className="ion-no-padding">
+                                    <IonTextarea
+                                        className="ion-no-padding main-input"
+                                        labelPlacement="floating"
+                                        placeholder='Enter address'
+                                        label='Address'
+                                        inputmode="text"
+                                        {...register('address')}
+                                    >
+                                    </IonTextarea>
+                                </IonItem>
+                                <ErrorMessage
                                     errors={errors}
-                                    key={i}
+                                    name='address'
+                                    as={<div style={{ color: 'red' }} />}
                                 />
-                            ))}
-                            </IonList>
-                            <IonList className="ion-no-padding">
-                                <>
-                                    <IonItem className="ion-no-padding">
-                                        <IonTextarea
-                                            className="ion-no-padding main-input"
-                                            labelPlacement="floating"
-                                            placeholder='Enter address'
-                                            label='Address'
-                                            inputmode="text"
-                                            {...register('address')}
-                                        >
-                                        </IonTextarea>
-                                    </IonItem>
-                                    <ErrorMessage
-                                        errors={errors}
-                                        name='address'
-                                        as={<div style={{ color: 'red' }} />}
-                                    />
-                                </>
-                            </IonList>
-                            <IonList className="ion-no-padding">
-                                <>
-                                    <IonItem className="ion-no-padding">
-                                        <IonTextarea
-                                            className="ion-no-padding main-input"
-                                            labelPlacement="floating"
-                                            placeholder='Enter message'
-                                            label='Message'
-                                            inputmode="text"
-                                            {...register('message')}
-                                        >
-                                        </IonTextarea>
-                                    </IonItem>
-                                    <ErrorMessage
-                                        errors={errors}
-                                        name='message'
-                                        as={<div style={{ color: 'red' }} />}
-                                    />
-                                </>
-                            </IonList>
-                            <div className='text-center'>
-                                <IonButton
-                                    color="success"
-                                    type="submit"
-                                    size='small'
-                                    className="mt-1 login-button"
-                                >
-                                    {loading ? (
-                                        <IonSpinner name="crescent"></IonSpinner>
-                                    ) : (
-                                        "Submit"
-                                    )}
-                                </IonButton>
-                            </div>
-                        </form>
-                    </IonCardContent>
-                </IonCard>
+                            </>
+                        </IonList>
+                        <IonList className="ion-no-padding">
+                            <>
+                                <IonItem className="ion-no-padding">
+                                    <IonTextarea
+                                        className="ion-no-padding main-input"
+                                        labelPlacement="floating"
+                                        placeholder='Enter message'
+                                        label='Message'
+                                        inputmode="text"
+                                        {...register('message')}
+                                    >
+                                    </IonTextarea>
+                                </IonItem>
+                                <ErrorMessage
+                                    errors={errors}
+                                    name='message'
+                                    as={<div style={{ color: 'red' }} />}
+                                />
+                            </>
+                        </IonList>
+                        <div className='text-center'>
+                            <IonButton
+                                color="success"
+                                type="submit"
+                                size='small'
+                                className="mt-1 login-button"
+                            >
+                                {loading ? (
+                                    <IonSpinner name="crescent"></IonSpinner>
+                                ) : (
+                                    "Submit"
+                                )}
+                            </IonButton>
+                        </div>
+                    </form>
+                </div>
+              </div>
             </IonContent>
         </IonPage>
     );

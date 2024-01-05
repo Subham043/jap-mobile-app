@@ -3,17 +3,13 @@ import {
   IonButton,
   IonText,
   IonCardContent,
-  IonGrid,
-  IonRow,
-  IonCol,
   IonList,
   IonSpinner,
 } from "@ionic/react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import Input from "../../../components/Input";
 import { axiosPublic } from "../../../../axios";
 import { api_routes } from "../../../helper/routes";
 import { useState } from "react";

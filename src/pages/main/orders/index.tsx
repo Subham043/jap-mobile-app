@@ -10,14 +10,12 @@ import {
 } from "@ionic/react";
 import BackHeader from "../../../components/BackHeader";
 import OrderCard from "../../../components/OrderCard";
-import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
+import React, { useCallback, useContext, useRef, useState } from "react";
 import { Order as OrderType } from "../../../helper/types";
 import { api_routes } from "../../../helper/routes";
 import { axiosPublic } from "../../../../axios";
 import useSWRInfinite from "swr/infinite";
-import LoadingCard from "../../../components/LoadingCard";
 import { AuthContext } from "../../../context/AuthProvider";
-import { chevronDownCircleOutline } from "ionicons/icons";
 import LoadingListCard from "../../../components/LoadingCard/LoadingListCard";
 
 const PAGE_SIZE = 20;

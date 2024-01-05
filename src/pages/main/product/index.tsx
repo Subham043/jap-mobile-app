@@ -1,9 +1,9 @@
-import { IonPage, IonContent, IonHeader, IonToolbar, IonSearchbar, IonButton, IonIcon, IonButtons, SearchbarInputEventDetail, IonInfiniteScroll, IonInfiniteScrollContent, IonText, IonGrid, IonRow, IonCol, IonRefresher, IonRefresherContent, RefresherEventDetail, ScrollDetail, IonTitle, IonInput } from '@ionic/react';
+import { IonPage, IonContent, IonHeader, IonToolbar, IonSearchbar, IonButton, IonIcon, IonButtons, SearchbarInputEventDetail, IonInfiniteScroll, IonInfiniteScrollContent, IonText, IonGrid, IonRow, IonCol, IonRefresher, IonRefresherContent, RefresherEventDetail, ScrollDetail, IonTitle } from '@ionic/react';
 import {axiosPublic} from '../../../../axios';
 import { api_routes } from '../../../helper/routes';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import MainFooter from '../../../components/MainFooter';
-import { filterCircleOutline, funnelOutline, searchOutline } from 'ionicons/icons';
+import { funnelOutline } from 'ionicons/icons';
 import { ProductSegmentState } from '../../../helper/types';
 import useSWRInfinite from "swr/infinite";
 import LoadingCard from '../../../components/LoadingCard';

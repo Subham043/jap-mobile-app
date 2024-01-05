@@ -70,12 +70,6 @@ const Account: React.FC = () => {
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen={false} forceOverscroll={false}>
-                <Link className="no-underline" to="/profile">
-                    <IonItem lines="full" detail={true}>
-                        <IonLabel>Profile</IonLabel>
-                        <IonIcon icon={personCircleOutline} slot="start"></IonIcon>
-                    </IonItem>
-                </Link>
                 <Link className="no-underline" to="/setting">
                     <IonItem lines="full" detail={true}>
                         <IonLabel>Setting</IonLabel>

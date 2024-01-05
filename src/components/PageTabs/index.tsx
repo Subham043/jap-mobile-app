@@ -12,7 +12,6 @@ import Order from "../../pages/main/orders";
 import OrderDetail from "../../pages/main/orders/detail";
 import Product from "../../pages/main/product";
 import ProductDetail from "../../pages/main/product/detail";
-import Profile from "../../pages/main/profile";
 import Setting from "../../pages/main/setting";
 import Wishlist from "../../pages/main/wishlist";
 import { useContext, useEffect, useState } from "react";
@@ -67,7 +66,6 @@ const PageTabs: React.FC = () => {
             <Route exact path="/cart" component={Cart2}></Route>
             <Route exact path="/wishlist" component={Wishlist}></Route>
             <Route exact path="/account" component={auth.authenticated ? Account : Login}></Route>
-            <Route exact path="/profile" component={Profile}></Route>
             <Route exact path="/setting" component={Setting}></Route>
             <Route exact path="/b2b-enquiry" component={B2B}></Route>
             <Route exact path="/orders" component={Order}></Route>

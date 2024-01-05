@@ -1,21 +1,17 @@
 import {
-    IonPage,
-    IonContent,
-    IonCard,
     IonButton,
     IonList,
     IonSpinner,
 } from "@ionic/react";
-import BackHeader from "../../../components/BackHeader";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Input from '../../../components/Input';
-import { axiosPublic } from "../../../../axios";
-import { api_routes } from "../../../helper/routes";
+import Input from '..//Input';
 import { useState } from "react";
-import { useAuth } from "../../../context/AuthProvider";
-import { useToast } from "../../../hooks/useToast";
+import { useAuth } from "../../context/AuthProvider";
+import { useToast } from "../../hooks/useToast";
+import { axiosPublic } from "../../../axios";
+import { api_routes } from "../../helper/routes";
 
 const fields = [
     {
@@ -109,48 +105,32 @@ const Profile: React.FC = () => {
       
 
     return (
-        <IonPage>
-            <BackHeader title='Profile' link='/account' />
-            <IonContent fullscreen={false} forceOverscroll={false}>
-                <IonCard className="final-table mt-2">
-                    <div className='ion-padding pt-0 pb-0'>
-                        <div className="content-main mt-1">
-                            <h6>Profile Information</h6>
-                        </div>
-                    </div>
-                    <div className='ion-padding mb-1'>
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                            <IonList className="ion-no-padding">
-                            {fields.map((item, i) => (
-                                <Input
-                                {...item}
-                                register={register}
-                                errors={errors}
-                                key={i}
-                                />
-                            ))}
-                            </IonList>
-                            <div className='text-center'>
-                                <IonButton
-                                    color="success"
-                                    type="submit"
-                                    size='small'
-                                    className="mt-1 login-button"
-                                >
-                                    {loading ? (
-                                        <IonSpinner name="crescent"></IonSpinner>
-                                    ) : (
-                                        "UPDATE"
-                                    )}
-                                </IonButton>
-                            </div>
-                        </form>
-                    </div>
-                    
-                </IonCard>
-
-            </IonContent>
-        </IonPage>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <IonList className="ion-no-padding">
+            {fields.map((item, i) => (
+                <Input
+                {...item}
+                register={register}
+                errors={errors}
+                key={i}
+                />
+            ))}
+            </IonList>
+            <div className='text-center'>
+                <IonButton
+                    color="success"
+                    type="submit"
+                    size='small'
+                    className="mt-1 login-button"
+                >
+                    {loading ? (
+                        <IonSpinner name="crescent"></IonSpinner>
+                    ) : (
+                        "UPDATE"
+                    )}
+                </IonButton>
+            </div>
+        </form>
     );
 };
 

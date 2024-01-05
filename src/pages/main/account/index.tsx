@@ -8,6 +8,10 @@ import {
     IonLabel,
     IonIcon,
     IonSpinner,
+    IonItemDivider,
+    IonRow,
+    IonCol,
+    IonButton,
 } from "@ionic/react";
 import { bagCheckOutline, bookmarkOutline, cogOutline, imageOutline, logOutOutline, mailUnreadOutline, newspaperOutline, personCircleOutline } from "ionicons/icons";
 import { useContext, useState } from "react";
@@ -106,17 +110,26 @@ const Account: React.FC = () => {
                         <IonIcon icon={newspaperOutline} slot="start"></IonIcon>
                     </IonItem>)
                 }
-                {loading ? (
-                    <IonItem lines="full" detail={true}>
-                        <IonSpinner name="crescent" color={'success'}></IonSpinner>
-                    </IonItem>
-                ) : (
-                    <IonItem lines="full" detail={true} onClick={logoutHandler}>
-                        <IonLabel>Logout</IonLabel>
-                        <IonIcon icon={logOutOutline} slot="start"></IonIcon>
-                    </IonItem>
-                )}
-
+                
+                <IonItemDivider className="cart-checkout-btn-main-container page-padding" slot="fixed">
+                      <IonRow className="ion-align-items-center ion-justify-content-center p-0 w-100">
+                          <IonCol
+                              size="12"
+                              className='text-right'
+                          >
+                              <IonButton className="pagination-btn m-0" fill='solid' color="danger" onClick={logoutHandler} disabled={loading}>
+                                {loading ? (
+                                    <IonSpinner name="crescent" color='light'></IonSpinner>
+                                ) : (
+                                    <>
+                                        <IonIcon icon={logOutOutline} slot="start"></IonIcon>
+                                        Logout
+                                    </>
+                                )}
+                              </IonButton>
+                          </IonCol>
+                      </IonRow>
+                  </IonItemDivider>
             </IonContent>
         </IonPage>
     );

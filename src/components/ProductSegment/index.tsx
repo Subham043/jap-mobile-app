@@ -60,13 +60,15 @@ const ProductSegment: React.FC<CategorySlugProps> = ({category_slug}) => {
     return (
         <>
 
-            <IonSegment scrollable={true} value={segment} color="success" onIonChange={(data)=>segmentChangeHandler(data)} className="mt-1">
-                {
-                    segments.map((item, i)=><IonSegmentButton value={item.value} key={i}>
-                    <IonLabel>{item.name}</IonLabel>
-                    </IonSegmentButton>)
-                }
-            </IonSegment>
+            <div className="product-segment-sticky">
+                <IonSegment mode='ios' scrollable={true} value={segment} color="success" onIonChange={(data)=>segmentChangeHandler(data)}>
+                    {
+                        segments.map((item, i)=><IonSegmentButton value={item.value} key={i}>
+                        <IonLabel>{item.name}</IonLabel>
+                        </IonSegmentButton>)
+                    }
+                </IonSegment>
+            </div>
 
             <IonGrid className="mt-1 p-0">
                 <IonRow className="ion-align-items-center ion-justify-content-between p-0">
@@ -79,7 +81,7 @@ const ProductSegment: React.FC<CategorySlugProps> = ({category_slug}) => {
                     size-sm="6"
                     size-xs="6" className='p-0' key={i}
                 >
-                    <ProductCard id={item.id} image={item.featured_image_link} name={item.name} price={item.price} discounted_price={item.discounted_price}  link={`/products/${item.slug}`} />
+                    <ProductCard id={item.id} image={item.featured_image_link} weight={item.weight} name={item.name} price={item.price} discounted_price={item.discounted_price}  link={`/products/${item.slug}`} />
                 </IonCol>)
                 }
 

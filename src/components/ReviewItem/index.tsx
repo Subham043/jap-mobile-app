@@ -1,17 +1,17 @@
-import { IonItemDivider, IonRow, IonCol, IonText, IonIcon } from "@ionic/react";
+import { IonItemDivider, IonRow, IonCol, IonText, IonIcon, IonImg } from "@ionic/react";
 import { starOutline } from "ionicons/icons";
 import { ProductReviewState } from "../../helper/types";
 
 const ReviewItem: React.FC<ProductReviewState> = ({name, star, message, image_link}) => {
     return (
         <IonItemDivider className="review-divider-total">
-            <div className="ion-padding w-100 pt-0 pb-0">
+            <div className="w-100 pt-0 pb-0">
                 <IonRow className="ion-align-items-center ion-justify-content-start p-0 w-100">
                     <IonCol
                         size="2"
                         className='text-left'
                     >
-                        <img alt="Silhouette of a person's head" src={image_link} />
+                        <IonImg src={image_link} />
                     </IonCol>
                     <IonCol
                         size="10"

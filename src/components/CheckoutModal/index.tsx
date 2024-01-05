@@ -12,6 +12,7 @@ import {
     IonSpinner,
     IonSelect,
     IonSelectOption,
+    useIonLoading,
 } from "@ionic/react";
 import { useHistory } from "react-router-dom";
 import { UseFormReturn, useForm } from "react-hook-form";
@@ -117,12 +118,15 @@ const CheckoutModal: React.FC<Props> = ({isOpen, setIsOpen, couponForm}) => {
     const {cart, updateCart } = useCart();
     const {toastSuccess, toastError} = useToast();
     const [loadingCheckout, setLoadingCheckout] = useState(false);
+    const [present, dismiss] = useIonLoading();
 
     const loadRazorpay = async(url:string, receipt:string) =>{
       await Browser.open({ url });
       Browser.addListener('browserFinished', async ()=>{
         try {
-          setLoadingCheckout(true);
+          await present({
+            message: 'Verifying Payment...',
+          });
           await axiosPublic.get(api_routes.place_order_detail+`/${receipt}`);
           toastSuccess('Order placed successfully.');
           reset({
@@ -143,10 +147,11 @@ const CheckoutModal: React.FC<Props> = ({isOpen, setIsOpen, couponForm}) => {
             pathname: `/orders/${receipt}`,
             state: {success: true}
           })
+          setIsOpen(false)
         } catch (error) {
             console.log(error);
         }finally{
-            setLoadingCheckout(false);
+          await dismiss()
         }
       });
     }
@@ -186,6 +191,7 @@ const CheckoutModal: React.FC<Props> = ({isOpen, setIsOpen, couponForm}) => {
               pathname: `/orders/${response.data.order.receipt}`,
               state: {success: true}
             })
+            setIsOpen(false)
           }else{
             loadRazorpay(response.data.order.payment_url, response.data.order.receipt);
           }
@@ -259,82 +265,71 @@ const CheckoutModal: React.FC<Props> = ({isOpen, setIsOpen, couponForm}) => {
       };
 
     return (
-        <IonModal isOpen={isOpen} onDidDismiss={()=>setIsOpen(false)} initialBreakpoint={1} breakpoints={[0, 1]} className='filter-modal-main'>
-            <IonHeader>
-                <IonToolbar>
-                    <IonTitle>Checkout</IonTitle>
-                    <IonButtons slot="end">
-                        <IonButton size="small" color='success' shape='round' fill='outline' strong={true} onClick={() => setIsOpen(false)}>
-                            Cancel
-                        </IonButton>
-                    </IonButtons>
-                </IonToolbar>
-            </IonHeader>
-            <IonContent>
-                <div className='ion-padding mb-1'>
-                    <div className="content-main mt-1">
-                        <h6>Billing Information</h6>
-                    </div>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <IonList className="ion-no-padding">
-                        {fields.map((item, i) => (
-                            <Input
-                            {...item}
-                            register={register}
-                            errors={errors}
-                            key={i}
-                            />
-                        ))}
-                        </IonList>
-                        <IonList className="ion-no-padding">
-                            <>
-                                <IonItem className="ion-no-padding auth-card-background">
-                                    <IonTextarea 
-                                        className="ion-no-padding" 
-                                        labelPlacement="floating" 
-                                        placeholder='Enter address'
-                                        label='Address'
-                                        inputmode="text"
-                                        {...register('billing_address_1')}
-                                    >
-                                    </IonTextarea>
-                                </IonItem>
-                                <ErrorMessage
-                                    errors={errors}
-                                    name='billing_address_1'
-                                    as={<div style={{ color: 'red' }} />}
-                                />
-                            </>
-                        </IonList>
-                        <IonList className="ion-no-padding">
-                            <IonItem className='ps-0'>
-                                <IonSelect aria-label="Payment Mode" interface="popover" label="Select payment mode" placeholder="Select payment mode" labelPlacement="floating" className="ion-no-padding" {...register('mode_of_payment')}>
-                                    <IonSelectOption value="Cash On Delivery">Cash On Delivery</IonSelectOption>
-                                    <IonSelectOption value="Online">Online</IonSelectOption>
-                                </IonSelect>
-                            </IonItem>
-                            <ErrorMessage
-                                errors={errors}
-                                name='mode_of_payment'
-                                as={<div style={{ color: 'red' }} />}
-                            />
-                        </IonList>
-                        <IonButton
-                            color="success"
-                            type="submit"
-                            expand="block"
-                            shape="round"
-                            className="mt-2"
-                        >
-                        {loadingCheckout ? (
-                            <IonSpinner name="crescent"></IonSpinner>
-                        ) : (
-                            "Place Order"
-                        )}
-                        </IonButton>
-                    </form>
-                </div>
-            </IonContent>
+        <IonModal isOpen={isOpen} onDidDismiss={()=>setIsOpen(false)} initialBreakpoint={1} breakpoints={[0, 1]} className='login-modal-main'>
+          <div className='page-padding mb-2 mt-1'>
+              <div className="content-main mt-1">
+                  <h6>Billing Information</h6>
+              </div>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                  <IonList className="ion-no-padding">
+                  {fields.map((item, i) => (
+                      <Input
+                      {...item}
+                      register={register}
+                      errors={errors}
+                      key={i}
+                      />
+                  ))}
+                  </IonList>
+                  <IonList className="ion-no-padding">
+                      <>
+                          <IonItem className="ion-no-padding auth-card-background">
+                              <IonTextarea 
+                                  className="ion-no-padding" 
+                                  labelPlacement="floating" 
+                                  placeholder='Enter address'
+                                  label='Address'
+                                  inputmode="text"
+                                  {...register('billing_address_1')}
+                              >
+                              </IonTextarea>
+                          </IonItem>
+                          <ErrorMessage
+                              errors={errors}
+                              name='billing_address_1'
+                              as={<div style={{ color: 'red' }} />}
+                          />
+                      </>
+                  </IonList>
+                  <IonList className="ion-no-padding">
+                      <IonItem className='ps-0'>
+                          <IonSelect aria-label="Payment Mode" interface="popover" label="Select payment mode" placeholder="Select payment mode" labelPlacement="floating" className="ion-no-padding" {...register('mode_of_payment')}>
+                              <IonSelectOption value="Cash On Delivery">Cash On Delivery</IonSelectOption>
+                              <IonSelectOption value="Online">Online</IonSelectOption>
+                          </IonSelect>
+                      </IonItem>
+                      <ErrorMessage
+                          errors={errors}
+                          name='mode_of_payment'
+                          as={<div style={{ color: 'red' }} />}
+                      />
+                  </IonList>
+                  <div className='text-center'>
+                      <IonButton
+                          color="success"
+                          type="submit"
+                          size='small'
+                          className="mt-1 login-button"
+                      >
+                          {loadingCheckout ? (
+                              <IonSpinner name="crescent"></IonSpinner>
+                          ) : (
+                              "Place Order"
+                          )}
+                      </IonButton>
+                  </div>
+              </form>
+          </div>
         </IonModal>
     );
 };

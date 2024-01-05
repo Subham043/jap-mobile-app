@@ -34,9 +34,7 @@ const Auth: React.FC<Props> = ({children} : Props) => {
                             style={imgLoading ? {visibility: 'Hidden'}:{visibility: 'visible'}}
                             onIonImgDidLoad={()=>setImgLoading(false)}
                         ></IonImg>
-                        <IonCard className="auth-card-background">
-                            {children}
-                        </IonCard>
+                        {children}
                     </IonCol>
                 </IonRow>
             </IonGrid>

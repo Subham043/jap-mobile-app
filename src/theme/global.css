@@ -190,6 +190,7 @@
 
 .main-tabs{
     --ripple-color: #28ba62;
+    color:#080808;
 }
 
 .main-tabs.tab-selected{
@@ -367,7 +368,7 @@
     --color: #222;
     --padding-start: 0;
     --inner-padding-end: 0;
-    border-top: 1px solid var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-150, rgba(0, 0, 0, 0.13))));
+    border-top: none;
     border-bottom: 1px solid var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-150, rgba(0, 0, 0, 0.13))));
 }
 

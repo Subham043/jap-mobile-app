@@ -15,8 +15,7 @@ export type Props = {
     weight: string,
 };
 
-const ProductCard: React.FC<Props> = ({id, image, name, price, weight, discounted_price, link}) => {
-    const [imgLoading, setImgLoading] = useState<boolean>(true);
+const ProductSliderCard: React.FC<Props> = ({id, image, name, price, weight, discounted_price, link}) => {
     const [loading, setLoading] = useState<boolean>(false);
     const {incrementProductQuantity, decrementProductQuantity, cart} = useCart();
     
@@ -37,15 +36,9 @@ const ProductCard: React.FC<Props> = ({id, image, name, price, weight, discounte
         }
     };
     
-    return <IonCard className="product-card">
-        <Link className="no-underline" to={link}>
-            {
-                imgLoading &&
-                <div className="text-center mt-1">
-                    <IonSpinner color='success' />
-                </div>
-            }
-            <IonImg alt="product" src={image} style={imgLoading ? {visibility: 'Hidden'}:{visibility: 'visible'}} className="product-card-image" onIonImgDidLoad={()=>setImgLoading(false)} />
+    return <IonCard className="product-card w-100">
+        <Link className="no-underline w-100" to={link}>
+            <IonImg alt="product" src={image} className="product-card-image" />
         </Link>
         <IonCardHeader className="product-card-header">
             <IonText color="success">
@@ -57,4 +50,4 @@ const ProductCard: React.FC<Props> = ({id, image, name, price, weight, discounte
     </IonCard>
 }
 
-export default ProductCard;
+export default ProductSliderCard;

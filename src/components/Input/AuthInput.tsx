@@ -14,12 +14,12 @@ type Props = {
     placeholder: string,
 };
 
-const Input: React.FC<Props> = ({errors, register, label, type, name, placeholder, inputmode}) => {
+const AuthInput: React.FC<Props> = ({errors, register, label, type, name, placeholder, inputmode}) => {
     const [passwordType, setPasswordType] = useState<boolean>(true);
     if(type==='password'){
         return (
             <>
-                <IonItem className="ion-no-padding auth-card-background">
+                <IonItem className="ion-no-padding auth-card-background auth-input-list-item">
                     <IonInput 
                         className="ion-no-padding" 
                         label={label} 
@@ -47,7 +47,7 @@ const Input: React.FC<Props> = ({errors, register, label, type, name, placeholde
     
     return (
         <>
-            <IonItem className="ion-no-padding auth-card-background">
+            <IonItem className="ion-no-padding auth-card-background auth-input-list-item">
                 <IonInput 
                     className="ion-no-padding" 
                     label={label} 
@@ -69,4 +69,4 @@ const Input: React.FC<Props> = ({errors, register, label, type, name, placeholde
     );
 }
 
-export default Input;
+export default AuthInput;

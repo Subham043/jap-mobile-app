@@ -1,6 +1,8 @@
 import ReviewItem from "../ReviewItem";
 import { ProductReviewState } from "../../helper/types";
 import ReviewForm from "./ReviewForm";
+import { IonButton } from "@ionic/react";
+import { useState } from "react";
 
 type Props = {
     reviews: ProductReviewState[],
@@ -9,20 +11,32 @@ type Props = {
 
 const Review: React.FC<Props> = ({product_id, reviews}) => {
 
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+
     return (
-      <>
-        <ReviewForm product_id={product_id} />
-        {reviews.length > 0 && <>
-            <div className='ion-padding pt-1'>
-                <div className="content-main">
-                    <h6>Reviews</h6>
-                </div>
-            </div>
-            <div className="mb-1">
-                {reviews.map((item, i) => <ReviewItem {...item} key={i} />)}
-            </div>
-        </>}
-      </>
+      <div className="product-detail-main-specification">
+        <div className="product-detail-main-content-heading">
+            <h6>Reviews</h6>
+        </div>
+        {reviews.length > 0 ? <div className="mb-1">
+            {reviews.map((item, i) => <ReviewItem {...item} key={i} />)}
+        </div> : <div className="text-center">
+            <p>No Reviews Available.</p>
+        </div>}
+        <div className="text-center">
+            <IonButton
+                color="success"
+                type="submit"
+                mode="md"
+                size='default'
+                className="login-button"
+                onClick={()=>setIsOpen(true)}
+            >
+                Add Review
+            </IonButton>
+        </div>
+        <ReviewForm isOpen={isOpen} setIsOpen={setIsOpen} product_id={product_id} />
+      </div>
     );
 }
 

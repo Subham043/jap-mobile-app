@@ -31,6 +31,7 @@ import 'swiper/css/zoom';
 /* Theme variables */
 import './theme/variables.css';
 import './theme/global.css';
+import './theme/main.css';
 
 import AuthProvider from './context/AuthProvider';
 import PageTabs from './components/PageTabs';
@@ -43,6 +44,7 @@ import LoginProvider from './context/LoginProvider';
 setupIonicReact();
 
 const App: React.FC = () => {
+
   return (
     <AuthProvider>
       <SwrLayout>

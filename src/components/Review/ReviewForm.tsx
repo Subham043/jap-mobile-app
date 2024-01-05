@@ -1,5 +1,5 @@
 import { ErrorMessage } from "@hookform/error-message";
-import { IonButton, IonCard, IonItem, IonLabel, IonList, IonSelect, IonSelectOption, IonSpinner, IonTextarea } from "@ionic/react";
+import { IonButton, IonCard, IonItem, IonLabel, IonList, IonModal, IonSelect, IonSelectOption, IonSpinner, IonTextarea } from "@ionic/react";
 import Input from "../Input";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
@@ -10,7 +10,9 @@ import { useState } from "react";
 import { useToast } from "../../hooks/useToast";
 
 type Props = {
-    product_id: number
+    product_id: number;
+    isOpen: boolean;
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const fields = [
@@ -46,7 +48,7 @@ const schema = yup
   })
   .required();
 
-const ReviewForm: React.FC<Props> = ({product_id}) => {
+const ReviewForm: React.FC<Props> = ({product_id, isOpen, setIsOpen}) => {
     const {toastError, toastSuccess} = useToast();
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -120,13 +122,11 @@ const ReviewForm: React.FC<Props> = ({product_id}) => {
       };
 
     return (
-        <IonCard className="final-table mt-2">
-            <div className='ion-padding pt-0 pb-0'>
+        <IonModal isOpen={isOpen} onDidDismiss={()=>setIsOpen(false)} initialBreakpoint={1} breakpoints={[0, 1]} className='login-modal-main'>
+            <div className='page-padding mb-2 mt-1'>
                 <div className="content-main mt-1">
                     <h6>Add Review</h6>
                 </div>
-            </div>
-            <div className='ion-padding mb-1'>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <IonList className="ion-no-padding">
                         {fields.map((item, i) => (
@@ -140,7 +140,7 @@ const ReviewForm: React.FC<Props> = ({product_id}) => {
                     </IonList>
                     <IonList className="ion-no-padding">
                         <IonItem className='ps-0'>
-                            <IonSelect aria-label="Rating" interface="popover" label="Select rating" placeholder="Select rating" labelPlacement="floating" className="ion-no-padding" {...register('star')}>
+                            <IonSelect aria-label="Rating" interface="popover" label="Select rating" placeholder="Select rating" labelPlacement="floating" className="ion-no-padding" color='success' {...register('star')}>
                                 <IonSelectOption value="5">5 stars</IonSelectOption>
                                 <IonSelectOption value="4">4 stars</IonSelectOption>
                                 <IonSelectOption value="3">3 stars</IonSelectOption>
@@ -188,23 +188,24 @@ const ReviewForm: React.FC<Props> = ({product_id}) => {
                             />
                         </>
                     </IonList>
-                    <IonButton
-                        color="success"
-                        type="submit"
-                        expand='full'
-                        shape="round"
-                        className="mt-2 sbmt-btn"
-                    >
-                        {loading ? (
-                            <IonSpinner name="crescent" color={'light'}></IonSpinner>
-                        ) : (
-                            "Submit"
-                        )}
-                    </IonButton>
+                    <div className='text-center'>
+                      <IonButton
+                          color="success"
+                          type="submit"
+                          size="small"
+                          mode="md"
+                          className="mt-2 login-btn"
+                      >
+                          {loading ? (
+                              <IonSpinner name="crescent" color={'light'}></IonSpinner>
+                          ) : (
+                              "Submit"
+                          )}
+                      </IonButton>
+                    </div>
                 </form>
             </div>
-
-        </IonCard>
+        </IonModal>
     );
 }
 

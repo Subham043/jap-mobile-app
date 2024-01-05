@@ -68,18 +68,11 @@ const FilterModal: React.FC<Props> = ({isOpen, setIsOpen, segment, setSegment, s
   
 
     return (
-      <IonModal isOpen={isOpen} onDidDismiss={()=>setIsOpen(false)} initialBreakpoint={1} breakpoints={[0, 0.3, 0.5, 0.8, 1]} className='filter-modal-main'>
-        <IonHeader>
-          <IonToolbar>
-            <IonTitle>Filters</IonTitle>
-            <IonButtons slot="end">
-              <IonButton  size="small" color='success' shape='round' fill='outline' strong={true}  onClick={()=>setIsOpen(false)}>
-                Apply
-              </IonButton>
-            </IonButtons>
-          </IonToolbar>
-        </IonHeader>
-        <IonContent>
+      <IonModal isOpen={isOpen} onDidDismiss={()=>setIsOpen(false)} initialBreakpoint={1} breakpoints={[0, 0.3, 0.5, 0.8, 1]} className='login-modal-main'>
+        <div className="content-main mt-2 mb-1">
+            <h6>Filters</h6>
+        </div>
+        <div className="mb-2">
           <IonAccordionGroup>
             <IonAccordion value="first">
               <IonItem slot="header" color="light">
@@ -152,7 +145,7 @@ const FilterModal: React.FC<Props> = ({isOpen, setIsOpen, segment, setSegment, s
               </div>
             </IonAccordion>
           </IonAccordionGroup>
-        </IonContent>
+        </div>
       </IonModal>
     );
   };

@@ -127,19 +127,20 @@ const Setting: React.FC = () => {
                                 />
                             ))}
                             </IonList>
-                            <IonButton
-                                color="success"
-                                type="submit"
-                                expand="block"
-                                shape="round"
-                                className="mt-2"
-                            >
-                            {loading ? (
-                                <IonSpinner name="crescent"></IonSpinner>
-                            ) : (
-                                "Update"
-                            )}
-                            </IonButton>
+                            <div className='text-center'>
+                                <IonButton
+                                    color="success"
+                                    type="submit"
+                                    size='small'
+                                    className="mt-1 login-button"
+                                >
+                                    {loading ? (
+                                        <IonSpinner name="crescent"></IonSpinner>
+                                    ) : (
+                                        "UPDATE"
+                                    )}
+                                </IonButton>
+                            </div>
                         </form>
                     </div>
                     

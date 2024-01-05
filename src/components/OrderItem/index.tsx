@@ -3,7 +3,7 @@ import { CartProducts } from "../../helper/types";
 import { useState } from "react";
 import './OrderItem.css';
 
-const OrderItem: React.FC<CartProducts> = ({featured_image_link, name, quantity, discounted_price, total_quantity_price}) => {
+const OrderItem: React.FC<CartProducts> = ({featured_image_link, name, weight, quantity, discounted_price, total_quantity_price}) => {
     const [imgLoading, setImgLoading] = useState<boolean>(true);
     return (
         <IonItemDivider className="cart-divider order-divider-item-main">
@@ -22,7 +22,7 @@ const OrderItem: React.FC<CartProducts> = ({featured_image_link, name, quantity,
                         <IonImg alt="product" className='cart-card-item-img order-item-img' src={featured_image_link} onIonImgDidLoad={()=>setImgLoading(false)} />
                         <IonText color="dark" class='order-item-text'>
                             <p className="cart-card-item-text order-item-name">{name}</p>
-                            <p className="cart-card-item-price">Price: <b>&#8377;{discounted_price}</b></p>
+                            <p className="cart-card-item-price"><b>&#8377;{discounted_price} / {weight}</b></p>
                         </IonText>
                     </div>
                 </IonCol>

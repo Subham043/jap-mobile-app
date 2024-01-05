@@ -8,7 +8,7 @@ export const segments = [
       value: 'is_new_arrival'
     },
     {
-      name: 'Best Sale',
+      name: 'On Sale',
       value: 'is_best_sale'
     },
     {

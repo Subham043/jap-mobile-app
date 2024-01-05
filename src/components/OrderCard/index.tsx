@@ -11,7 +11,7 @@ const OrderCard: React.FC<Order> = ({receipt, total_price_with_coupon_dicount, c
         <div className='order-card'>
             <IonRow className="ion-justify-content-between w-100">
                 <IonCol
-                    size="10"
+                    size="9"
                     className='text-left'
                 >
                     <IonLabel class='order-card-product-label'>
@@ -19,7 +19,7 @@ const OrderCard: React.FC<Order> = ({receipt, total_price_with_coupon_dicount, c
                     </IonLabel>
                 </IonCol>
                 <IonCol
-                    size="2"
+                    size="3"
                     className='text-right'
                 >
                     <IonText>
@@ -34,7 +34,7 @@ const OrderCard: React.FC<Order> = ({receipt, total_price_with_coupon_dicount, c
                 >
                     <IonText>
                         <p className='order-card-product-order-id'>
-                            {receipt}
+                            Order#{id}
                         </p>
                         <p className='order-card-product-timestamp'>
                             Placed: {created_at}

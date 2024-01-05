@@ -22,6 +22,9 @@ import { useCart } from "../../context/CartProvider2";
 import B2B from "../../pages/main/b2b";
 import { Network } from '@capacitor/network';
 import NoNetwork from "../NoNetwork";
+import Home2 from "../../pages/main/home/home";
+import Cart2 from "../../pages/main/cart/Cart2";
+import ProductDetail2 from "../../pages/main/product/detail2";
 
 const PageTabs: React.FC = () => {
   const {auth} = useContext(AuthContext);
@@ -57,11 +60,11 @@ const PageTabs: React.FC = () => {
             <Route exact path="/login" component={Login}></Route>
             <Route exact path="/forgot_password" component={ForgotPassword}></Route>
             <Route exact path="/register" component={Register}></Route>
-            <Route exact path="/home" component={Home}></Route>
+            <Route exact path="/home" component={Home2}></Route>
             <Route exact path="/category/:slug" component={Category}></Route>
             <Route exact path="/products" component={Product}></Route>
-            <Route exact path="/products/:slug" component={ProductDetail}></Route>
-            <Route exact path="/cart" component={Cart}></Route>
+            <Route exact path="/products/:slug" component={ProductDetail2}></Route>
+            <Route exact path="/cart" component={Cart2}></Route>
             <Route exact path="/wishlist" component={Wishlist}></Route>
             <Route exact path="/account" component={auth.authenticated ? Account : Login}></Route>
             <Route exact path="/profile" component={Profile}></Route>

@@ -20,6 +20,7 @@ import { useContext, useState } from "react";
 import Auth from "../../../layout/Auth";
 import { AuthContext } from "../../../context/AuthProvider";
 import { useToast } from "../../../hooks/useToast";
+import AuthInput from "../../../components/Input/AuthInput";
 
 const schema = yup
   .object({
@@ -99,60 +100,56 @@ const Login: React.FC = () => {
 
   return (
     <Auth>
-        <IonCardHeader>
-        <IonText color="success" className="text-center">
-            <h3>LOGIN</h3>
-        </IonText>
-        </IonCardHeader>
 
         <IonCardContent>
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <IonList className="ion-no-padding">
-            {fields.map((item, i) => (
-                <Input
-                {...item}
-                register={register}
-                errors={errors}
-                key={i}
-                />
-            ))}
-            </IonList>
-            <IonButton
-            color="success"
-            type="submit"
-            expand="full"
-            shape="round"
-            className="mt-2"
-            >
-            {loading ? (
-                <IonSpinner name="crescent"></IonSpinner>
-            ) : (
-                "Login"
-            )}
-            </IonButton>
-        </form>
-        <IonGrid className="mt-1">
-            <IonRow className="ion-align-items-center ion-justify-content-between">
-            <IonCol size="6">
-                <Link className="no-underline" to="/register">
-                <IonText color="dark">
-                    <p className="fs-1-5 text-left">
-                    <b>Register</b>
-                    </p>
-                </IonText>
-                </Link>
-            </IonCol>
-            <IonCol size="6">
-                <Link className="no-underline" to="/forgot_password">
-                <IonText color="dark">
-                    <p className="fs-1-5 text-right">
-                    <b>Forgot Password?</b>
-                    </p>
-                </IonText>
-                </Link>
-            </IonCol>
-            </IonRow>
-        </IonGrid>
+          <form onSubmit={handleSubmit(onSubmit)}>
+              <IonList className="ion-no-padding">
+              {fields.map((item, i) => (
+                  <AuthInput
+                  {...item}
+                  register={register}
+                  errors={errors}
+                  key={i}
+                  />
+              ))}
+              </IonList>
+              <IonButton
+              color="success"
+              type="submit"
+              expand="full"
+              shape="round"
+              className="mt-2"
+              mode="md"
+              >
+              {loading ? (
+                  <IonSpinner name="crescent"></IonSpinner>
+              ) : (
+                  "Login"
+              )}
+              </IonButton>
+          </form>
+          <IonGrid className="mt-1">
+              <IonRow className="ion-align-items-center ion-justify-content-between">
+              <IonCol size="6">
+                  <Link className="no-underline" to="/register">
+                  <IonText color="dark">
+                      <p className="fs-1-5 text-left">
+                      <b>Register</b>
+                      </p>
+                  </IonText>
+                  </Link>
+              </IonCol>
+              <IonCol size="6">
+                  <Link className="no-underline" to="/forgot_password">
+                  <IonText color="dark">
+                      <p className="fs-1-5 text-right">
+                      <b>Forgot Password?</b>
+                      </p>
+                  </IonText>
+                  </Link>
+              </IonCol>
+              </IonRow>
+          </IonGrid>
         </IonCardContent>
     </Auth>
   );

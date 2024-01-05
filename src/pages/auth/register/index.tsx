@@ -19,6 +19,7 @@ import { api_routes } from "../../../helper/routes";
 import { useState } from "react";
 import Auth from "../../../layout/Auth";
 import { useToast } from "../../../hooks/useToast";
+import AuthInput from "../../../components/Input/AuthInput";
 
 
 const fields = [
@@ -145,17 +146,12 @@ const Register: React.FC = () => {
 
   return (
     <Auth>
-        <IonCardHeader>
-        <IonText color="success" className="text-center">
-            <h3>REGISTRATION</h3>
-        </IonText>
-        </IonCardHeader>
 
         <IonCardContent>
           <form onSubmit={handleSubmit(onSubmit)}>
               <IonList className="ion-no-padding">
               {fields.map((item, i) => (
-                  <Input
+                  <AuthInput
                   {...item}
                   register={register}
                   errors={errors}
@@ -169,6 +165,7 @@ const Register: React.FC = () => {
               expand="full"
               shape="round"
               className="mt-2"
+              mode="md"
               >
               {loading ? (
                   <IonSpinner name="crescent"></IonSpinner>

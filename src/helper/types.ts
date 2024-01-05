@@ -55,6 +55,7 @@ export interface ProductSegmentState<> {
     is_best_sale: boolean;
     is_featured: boolean;
     is_new_arrival: boolean
+    weight: string
     other_images: ProductOtherImagesState[]|[]
     price: number
     reviews: ProductReviewState[]|[],
@@ -110,6 +111,7 @@ export interface CartProducts<> {
     price: number
     quantity: number
     total_quantity_price: number
+    weight: string
     categories: []|CategoryState[]
 }
 

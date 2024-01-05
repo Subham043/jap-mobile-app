@@ -1,9 +1,9 @@
-import { IonPage, IonContent, IonHeader, IonToolbar, IonSearchbar, IonButton, IonIcon, IonButtons, SearchbarInputEventDetail, IonInfiniteScroll, IonInfiniteScrollContent, IonText, IonGrid, IonRow, IonCol, IonRefresher, IonRefresherContent, RefresherEventDetail } from '@ionic/react';
+import { IonPage, IonContent, IonHeader, IonToolbar, IonSearchbar, IonButton, IonIcon, IonButtons, SearchbarInputEventDetail, IonInfiniteScroll, IonInfiniteScrollContent, IonText, IonGrid, IonRow, IonCol, IonRefresher, IonRefresherContent, RefresherEventDetail, ScrollDetail, IonTitle, IonInput } from '@ionic/react';
 import {axiosPublic} from '../../../../axios';
 import { api_routes } from '../../../helper/routes';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import MainFooter from '../../../components/MainFooter';
-import { filterCircleOutline } from 'ionicons/icons';
+import { filterCircleOutline, funnelOutline, searchOutline } from 'ionicons/icons';
 import { ProductSegmentState } from '../../../helper/types';
 import useSWRInfinite from "swr/infinite";
 import LoadingCard from '../../../components/LoadingCard';
@@ -23,6 +23,11 @@ const Product: React.FC = () => {
   const [hasNextPage, setHasNextPage] = useState<boolean>(true);
 
   const productRef = useRef<HTMLIonInfiniteScrollElement | null>(null);
+
+  const [showSubHeader, setShowSubHeader] = useState<boolean>(false);
+  const ref = useRef<HTMLDivElement|null>(null)
+
+  const handleScroll = useCallback((ev: CustomEvent<ScrollDetail>) => ev.detail.scrollTop>=((ref && ref.current) ? ref?.current?.offsetTop : 475) ? setShowSubHeader(true) : setShowSubHeader(false), [])
 
   useEffect(() => {
     let isMounted = true
@@ -68,13 +73,14 @@ const Product: React.FC = () => {
     return (
       <IonPage>
         <IonHeader>
-          <IonToolbar className='main-header-background'> 
-            <IonSearchbar showClearButton="focus" debounce={500} onIonInput={(ev) => searchHandler(ev)}></IonSearchbar>
+          <IonToolbar mode='ios' className='main-header-background'> 
+            {/* <IonSearchbar showClearButton="focus" debounce={500} onIonInput={(ev) => searchHandler(ev)}></IonSearchbar>
             <IonButtons slot="end">
                 <IonButton size='large' color='success' shape='round' fill='clear' className='filter-btn' onClick={()=>setIsOpen(true)}>
                     <IonIcon icon={filterCircleOutline}></IonIcon>
                 </IonButton>
-            </IonButtons>
+            </IonButtons> */}
+            <IonTitle className='text-center'>Our Products</IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonContent
@@ -88,13 +94,17 @@ const Product: React.FC = () => {
               <IonRefresherContent></IonRefresherContent>
           </IonRefresher>
 
-          <div className='ion-padding pt-0 pb-0'>
-            <div className="content-main mt-2">
-              <h2>Our Products</h2>
-            </div>
+          <div className='page-padding pb-0 product-main-page-sticky'>
+            <IonSearchbar mode='md' showClearButton="focus" debounce={500} onIonInput={(ev) => searchHandler(ev)}></IonSearchbar>
+            <IonButtons>
+                <IonButton size='large' color='success' fill='solid' className='filter-btn' onClick={()=>setIsOpen(true)}>
+                    <IonIcon icon={funnelOutline}></IonIcon>
+                    {/* <IonText>&nbsp;Filter</IonText> */}
+                </IonButton>
+            </IonButtons>
           </div>
 
-          <div className='ion-padding pt-0 min-height-100'>
+          <div className='page-padding min-height-100'>
               
               <IonGrid className="mt-1 p-0">
                   <IonRow className="ion-align-items-center ion-justify-content-between p-0">
@@ -107,7 +117,7 @@ const Product: React.FC = () => {
                       size-sm="6"
                       size-xs="6" className='p-0' key={i}
                   >
-                      <ProductCard id={item.id} image={item.featured_image_link} name={item.name} price={item.price} discounted_price={item.discounted_price}  link={`/products/${item.slug}`} />
+                      <ProductCard id={item.id} image={item.featured_image_link} weight={item.weight} name={item.name} price={item.price} discounted_price={item.discounted_price}  link={`/products/${item.slug}`} />
                   </IonCol>)
                   }
 

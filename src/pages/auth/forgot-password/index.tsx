@@ -19,6 +19,7 @@ import { api_routes } from "../../../helper/routes";
 import { useState } from "react";
 import Auth from "../../../layout/Auth";
 import { useToast } from "../../../hooks/useToast";
+import AuthInput from "../../../components/Input/AuthInput";
 
 const fields = [
   {
@@ -95,7 +96,7 @@ const ForgotPassword: React.FC = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
               <IonList className="ion-no-padding">
               {fields.map((item, i) => (
-                  <Input
+                  <AuthInput
                   {...item}
                   register={register}
                   errors={errors}
@@ -109,6 +110,7 @@ const ForgotPassword: React.FC = () => {
               expand="full"
               shape="round"
               className="mt-2"
+              mode="md"
               >
               {loading ? (
                   <IonSpinner name="crescent"></IonSpinner>

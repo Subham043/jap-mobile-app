@@ -81,10 +81,10 @@
     --padding-bottom: 0;
     padding-bottom: 0;
 }
-.category-slider{
+/* .category-slider{
     padding-inline-start: var(--padding-start);
     --padding-start: var(--ion-padding, 16px);  
-}
+} */
 
 .category-slider .swiper-slide {
     width: 55%;

@@ -6,7 +6,7 @@ import { segments } from "../../helper/constants";
 import LoadingCard from "../LoadingCard";
 import useSWRInfinite from "swr/infinite";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
+import { Pagination, Virtual } from 'swiper/modules';
 import ProductSliderCard from "../ProductCard/ProductSliderCard";
 
 const PAGE_SIZE = 8;
@@ -66,10 +66,10 @@ const ProductSegmentSlider: React.FC<CategorySlugProps & ProductSegmentProps> = 
             <div className="category-slider">
                 {isProductLoading && <LoadingCard />}
                 <Swiper
-                    modules={[Pagination]}
+                    modules={[Pagination, Virtual]}
                     autoplay={false}
                     keyboard={false}
-                    slidesPerView={'auto'}
+                    slidesPerView={2}
                     centeredSlides={false}
                     pagination={{
                         dynamicBullets: true,
@@ -78,9 +78,10 @@ const ProductSegmentSlider: React.FC<CategorySlugProps & ProductSegmentProps> = 
                     scrollbar={false}
                     zoom={false}
                     onSlideNextTransitionEnd={(swiper)=>((productData ? productData.flat() : []).length>0 && (swiper.activeIndex+1)>=((productData ? productData.flat() : []).length/2)) && setProductSize(productSize+1)}
+                    virtual
                 >
                     {
-                        (productData ? productData.flat() : []).map((item, i) => <SwiperSlide key={i}>
+                        (productData ? productData.flat() : []).map((item, i) => <SwiperSlide key={i} virtualIndex={i}>
                             <ProductSliderCard id={item.id} image={item.featured_image_link} weight={item.weight} name={item.name} price={item.price} discounted_price={item.discounted_price}  link={`/products/${item.slug}`} />
                         </SwiperSlide>)
                     }

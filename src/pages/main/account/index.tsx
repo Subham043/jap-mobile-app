@@ -88,6 +88,12 @@ const Account: React.FC = () => {
                         <IonIcon icon={bagCheckOutline} slot="start"></IonIcon>
                     </IonItem>
                 </Link>
+                <Link className="no-underline" to="/contact-us">
+                    <IonItem lines="full" detail={true}>
+                        <IonLabel>Contact Us</IonLabel>
+                        <IonIcon icon={mailUnreadOutline} slot="start"></IonIcon>
+                    </IonItem>
+                </Link>
                 <Link className="no-underline" to="/b2b-enquiry">
                     <IonItem lines="full" detail={true}>
                         <IonLabel>B2B Enquiry</IonLabel>

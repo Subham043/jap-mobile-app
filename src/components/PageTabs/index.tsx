@@ -21,6 +21,7 @@ import NoNetwork from "../NoNetwork";
 import Home2 from "../../pages/main/home/home";
 import Cart2 from "../../pages/main/cart/Cart2";
 import ProductDetail2 from "../../pages/main/product/detail2";
+import Contact from "../../pages/main/contact";
 
 const PageTabs: React.FC = () => {
   const {auth} = useContext(AuthContext);
@@ -65,6 +66,7 @@ const PageTabs: React.FC = () => {
             <Route exact path="/account" component={auth.authenticated ? Account : Login}></Route>
             <Route exact path="/setting" component={Setting}></Route>
             <Route exact path="/b2b-enquiry" component={B2B}></Route>
+            <Route exact path="/contact-us" component={Contact}></Route>
             <Route exact path="/orders" component={Order}></Route>
             <Route exact path="/orders/:receipt" component={OrderDetail}></Route>
             <Route exact path="/">

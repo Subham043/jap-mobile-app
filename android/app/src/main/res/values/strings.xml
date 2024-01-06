@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">JAP</string>
+    <string name="title_activity_main">JAP</string>
+    <string name="package_name">bio.jap.app</string>
+    <string name="custom_url_scheme">bio.jap.app</string>
+</resources>

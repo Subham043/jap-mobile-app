@@ -21,6 +21,9 @@ import { useToast } from "../../hooks/useToast";
 import { axiosPublic } from "../../../axios";
 import { api_routes } from "../../helper/routes";
 import Input from "../Input";
+import useSWR from 'swr'
+import { useAuth } from "../../context/AuthProvider";
+import { OrderBillinInfo } from "../../helper/types";
 
 type Props = {
     isOpen: boolean;
@@ -111,9 +114,12 @@ const schema = yup
 const CheckoutModal: React.FC<Props> = ({isOpen, setIsOpen, couponForm}) => {
     const history = useHistory();
     const {cart, updateCart } = useCart();
+    const { auth } = useAuth();
     const {toastSuccess, toastError} = useToast();
     const [loadingCheckout, setLoadingCheckout] = useState(false);
     const [present, dismiss] = useIonLoading();
+
+    const { data:billingInfo } = useSWR<OrderBillinInfo>(auth.authenticated ? api_routes.latest_order_billing_info : null);
 
     const loadRazorpay = async(url:string, receipt:string) =>{
       await Browser.open({ url });
@@ -159,6 +165,18 @@ const CheckoutModal: React.FC<Props> = ({isOpen, setIsOpen, couponForm}) => {
         formState: { errors },
       } = useForm({
         resolver: yupResolver(schema),
+        values: {
+          billing_country: (billingInfo && billingInfo.order) ? billingInfo.order.billing_country : 'India',
+          billing_state: (billingInfo && billingInfo.order) ? billingInfo.order.billing_state : "",
+          billing_city: (billingInfo && billingInfo.order) ? billingInfo.order.billing_city : "",
+          billing_pin: (billingInfo && billingInfo.order) ? billingInfo.order.billing_pin.toString() : "",
+          billing_address_1: (billingInfo && billingInfo.order) ? billingInfo.order.billing_address_1 : "",
+          billing_first_name: (billingInfo && billingInfo.order) ? billingInfo.order.billing_first_name : "",
+          billing_last_name: (billingInfo && billingInfo.order) ? billingInfo.order.billing_last_name : "",
+          billing_email: (billingInfo && billingInfo.order) ? billingInfo.order.billing_email : "",
+          billing_phone: (billingInfo && billingInfo.order) ? billingInfo.order.billing_phone.toString() : "",
+          mode_of_payment: ''
+        }
       });
 
     const onSubmit = async (data: any) => {

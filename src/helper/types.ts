@@ -241,6 +241,31 @@ export interface Order<> {
     razorpay_order_id: null|string;
 }
 
+export interface OrderBillinInfo<> {
+    order: {
+        billing_first_name: string;
+        billing_last_name: string;
+        billing_email: string;
+        billing_phone: number;
+        billing_country: string;
+        billing_state: string;
+        billing_city: string;
+        billing_pin: number;
+        billing_address_1: string;
+        billing_address_2: null|string;
+        shipping_first_name: null|string;
+        shipping_last_name: null|string;
+        shipping_email: null|string;
+        shipping_phone: null|number;
+        shipping_country: null|string;
+        shipping_state: null|string;
+        shipping_city: null|string;
+        shipping_pin: null|number;
+        shipping_address_1: null|string;
+        shipping_address_2: null|string;
+    } | null;
+}
+
 export interface APIMetaLinkType<> {
     active: boolean;
     url: string|null;

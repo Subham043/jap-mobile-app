@@ -1,5 +1,4 @@
-import { IonPage, IonContent, ScrollDetail, IonToolbar, IonImg, IonIcon, IonHeader, IonTitle } from '@ionic/react';
-import { useCallback, useRef, useState } from 'react';
+import { IonPage, IonContent, IonToolbar, IonIcon, IonHeader, IonTitle } from '@ionic/react';
 import MainFooter from '../../../components/MainFooter';
 import { Link } from 'react-router-dom';
 import { searchOutline } from 'ionicons/icons';
@@ -17,16 +16,11 @@ const images = [
 
 
 const Home2: React.FC = () => {
-
-  const [showSubHeader, setShowSubHeader] = useState<boolean>(false);
-  const ref = useRef<HTMLDivElement|null>(null)
-
-  const handleScroll = useCallback((ev: CustomEvent<ScrollDetail>) => ev.detail.scrollTop>=((ref && ref.current) ? ref?.current?.offsetTop : 475) ? setShowSubHeader(true) : setShowSubHeader(false), [])
   
 
     return (
       <IonPage>
-        <IonHeader mode='ios' translucent={true} className={`custom-main-header-home-bg custom-main-header-home-secondary ${showSubHeader ? 'custom-main-header-home-translucent-active' : 'custom-main-header-home-translucent'}`}>
+        <IonHeader translucent={true} className={`custom-main-header-home-bg custom-main-header-home-secondary custom-main-header-home-translucent-active`}>
           <IonToolbar className='main-home-header-toolbar-background'>
             <IonTitle className="page-padding main-home-header-title main-home-header-title-second">
               <Link to='/products' className='searchbar-home-btn'>
@@ -39,41 +33,7 @@ const Home2: React.FC = () => {
         <IonContent
           fullscreen={true}
           forceOverscroll={false}
-          scrollEvents={true}
-          onIonScroll={handleScroll}
         >
-          <IonHeader mode='ios' collapse="condense" className='custom-main-header-home-bg custom-main-header-home-condensed'>
-            <IonToolbar className='main-home-header-toolbar-background'>
-                <IonTitle className="page-padding main-home-header-title" size='large'>
-                  <IonImg
-                      src="/images/logo.webp"
-                      alt="Logo"
-                      className="main-home-img-logo"
-                  ></IonImg>
-                  <div ref={ref}>
-                    <Link to='/products' className='searchbar-home-btn'>
-                      <h3>Search anything</h3>
-                      <IonIcon icon={searchOutline} className='searchbar-home-icon'></IonIcon>
-                    </Link>
-                  </div>
-                </IonTitle>
-            </IonToolbar>
-          </IonHeader>
-          {/* <div className='main-home-header-background'>
-              <IonToolbar className='main-home-header-toolbar-background'>
-                <IonImg
-                    src="/images/logo.webp"
-                    alt="Logo"
-                    className="main-home-img-logo"
-                ></IonImg>
-              </IonToolbar>
-          </div>
-          <div ref={ref} className={`ion-padding searchbar-home-sticky ${showSubHeader ? 'searchbar-home-sticky-active' : ''}`}>
-            <Link to='/products' className='searchbar-home-btn'>
-              <h3>Search anything</h3>
-              <IonIcon icon={searchOutline} className='searchbar-home-icon'></IonIcon>
-            </Link>
-          </div> */}
           <div className='ion-padding page-padding home-slider'>
             <Slider2 images={images} />
           </div>

@@ -46,6 +46,8 @@
     padding: 7px 7px;
     border-radius: 6px;
     border: 1px solid #dedede;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .searchbar-home-btn .searchbar-home-icon{
@@ -74,21 +76,26 @@
 }
 
 .page-padding{
-    padding-inline-start: var(--padding-start);
-    padding-inline-end: var(--padding-end);
     --padding-start: var(--ion-padding, 16px);   
     --padding-end: var(--ion-padding, 16px);   
     --padding-bottom: 0;
+    /* padding-inline-start: var(--padding-start);
+    padding-inline-end: var(--padding-end); */
+    padding-inline-start: 8px;
+    padding-inline-end: 8px;
     padding-bottom: 0;
+}
+.category-slider{
+    padding-bottom: 1rem;
 }
 /* .category-slider{
     padding-inline-start: var(--padding-start);
     --padding-start: var(--ion-padding, 16px);  
 } */
 
-.category-slider .swiper-slide {
+/* .category-slider .swiper-slide {
     width: 55%;
-}
+} */
 
 .mb-2{
     margin-bottom: 2rem;
@@ -349,6 +356,9 @@
 .order-card-item-main-container:first-child{
     border-top: none;
 }
+.order-card-item-main-container:last-child{
+    border-bottom: 5px solid #eaeaea;
+}
 .order-card-item-main-container .order-card{
     background: white;
     background-color: white;
@@ -360,4 +370,47 @@
 }
 .wishlist-item-main-container:last-child{
     border-bottom: 1px dashed #699c47;
+}
+.custom-main-header-home-bg{
+    background-color: #ddf8e8;
+    transition: all 0.3s ease-in-out;
+}
+.custom-main-header-home-secondary{
+    position: absolute;
+}
+
+.custom-main-header-home-translucent{
+    height: 0;
+    top: 0;
+    bottom: 0;
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+    padding-top: 0;
+}
+.custom-main-header-home-translucent-active{
+    height: auto;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+}
+.custom-main-header-home-condensed{
+    top: calc(var(--offset-top) * -1);
+    bottom: calc(var(--offset-bottom) * -1);
+    padding-inline-start: var(--padding-start);
+    padding-inline-end: var(--padding-end);
+    padding-top: calc(var(--padding-top) + var(--offset-top) + var(--ion-safe-area-top));
+    /* padding-bottom: calc(var(--padding-bottom) + var(--keyboard-offset) + var(--offset-bottom)); */
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.custom-main-header-home-condensed .main-home-header-toolbar-background{
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.main-home-header-title{
+    width: 100%;
+    display: block;
+}
+.main-home-header-title-second{
+    position: static;
 }

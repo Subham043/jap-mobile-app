@@ -12,20 +12,20 @@ const Setting: React.FC = () => {
         <IonPage>
             <BackHeader title='Setting' link='/account' />
             <IonContent fullscreen={false} forceOverscroll={false}>
-              <div className="page-padding mt-1 mb-1">
+              <div className="mt-1 mb-1">
                 <div className="product-detail-main-specification">
-                  <div className="product-detail-main-content-heading">
+                  <div className="page-padding product-detail-main-content-heading">
                       <h6>Profile Information</h6>
                   </div>
-                  <div>
+                  <div className="page-padding">
                     <Profile />
                   </div>
                 </div>
                 <div className="product-detail-main-specification">
-                  <div className="product-detail-main-content-heading">
+                  <div className="page-padding product-detail-main-content-heading">
                       <h6>Password Information</h6>
                   </div>
-                  <div>
+                  <div className="page-padding">
                     <SettingComponent />
                   </div>
                 </div>

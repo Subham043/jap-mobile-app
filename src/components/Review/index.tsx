@@ -15,25 +15,27 @@ const Review: React.FC<Props> = ({product_id, reviews}) => {
 
     return (
       <div className="product-detail-main-specification">
-        <div className="product-detail-main-content-heading">
+        <div className="page-padding product-detail-main-content-heading">
             <h6>Reviews</h6>
         </div>
-        {reviews.length > 0 ? <div className="mb-1">
-            {reviews.map((item, i) => <ReviewItem {...item} key={i} />)}
-        </div> : <div className="text-center">
-            <p>No Reviews Available.</p>
-        </div>}
-        <div className="text-center">
-            <IonButton
-                color="success"
-                type="submit"
-                mode="md"
-                size='default'
-                className="login-button"
-                onClick={()=>setIsOpen(true)}
-            >
-                Add Review
-            </IonButton>
+        <div className="page-padding">
+            {reviews.length > 0 ? <div className="mb-1">
+                {reviews.map((item, i) => <ReviewItem {...item} key={i} />)}
+            </div> : <div className="text-center">
+                <p>No Reviews Available.</p>
+            </div>}
+            <div className="text-center">
+                <IonButton
+                    color="success"
+                    type="submit"
+                    mode="md"
+                    size='default'
+                    className="login-button"
+                    onClick={()=>setIsOpen(true)}
+                >
+                    Add Review
+                </IonButton>
+            </div>
         </div>
         <ReviewForm isOpen={isOpen} setIsOpen={setIsOpen} product_id={product_id} />
       </div>

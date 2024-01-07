@@ -301,9 +301,9 @@ const B2B: React.FC = () => {
         <IonPage>
             <BackHeader title='B2B Enquiry' link='/account' />
             <IonContent fullscreen={false} forceOverscroll={false}>
-              <div className="page-padding mt-1">
+              <div className="mt-1">
                 <div className="product-detail-main-specification">
-                    <div className="product-detail-main-content-heading">
+                    <div className="page-padding product-detail-main-content-heading">
                         <h6>Contact Information</h6>
                     </div>
 
@@ -329,11 +329,11 @@ const B2B: React.FC = () => {
                     </div>
                 </div>
                 <div className="product-detail-main-specification">
-                    <div className="product-detail-main-content-heading">
+                    <div className="page-padding product-detail-main-content-heading">
                         <h6>Drop Your Thoughts</h6>
                     </div>
 
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <form className="page-padding" onSubmit={handleSubmit(onSubmit)}>
                         <IonList className="ion-no-padding">
                         {fields.map((item, i) => (
                             <Input

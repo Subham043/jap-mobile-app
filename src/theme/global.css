@@ -21,14 +21,14 @@
 
 .custom-main-header-bg{
     background-color: #ddf8e8;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
-    top: calc(var(--offset-top) * -1);
+    /* background-color: #ffffff; */
+    /* box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12); */
+    /* top: calc(var(--offset-top) * -1);
     bottom: calc(var(--offset-bottom) * -1);
     padding-inline-start: var(--padding-start);
     padding-inline-end: var(--padding-end);
     padding-top: calc(var(--padding-top) + var(--offset-top) + var(--ion-safe-area-top));
-    padding-bottom: calc(var(--padding-bottom) + var(--keyboard-offset) + var(--offset-bottom));
+    padding-bottom: calc(var(--padding-bottom) + var(--keyboard-offset) + var(--offset-bottom)); */
 }
 .custom-secondary-header-bg{
     background-color: #ddf8e8;

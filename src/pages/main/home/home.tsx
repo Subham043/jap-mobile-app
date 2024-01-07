@@ -1,4 +1,4 @@
-import { IonPage, IonContent, ScrollDetail, IonToolbar, IonImg, IonIcon } from '@ionic/react';
+import { IonPage, IonContent, ScrollDetail, IonToolbar, IonImg, IonIcon, IonHeader, IonTitle } from '@ionic/react';
 import { useCallback, useRef, useState } from 'react';
 import MainFooter from '../../../components/MainFooter';
 import { Link } from 'react-router-dom';
@@ -26,13 +26,40 @@ const Home2: React.FC = () => {
 
     return (
       <IonPage>
+        <IonHeader mode='ios' translucent={true} className={`custom-main-header-home-bg custom-main-header-home-secondary ${showSubHeader ? 'custom-main-header-home-translucent-active' : 'custom-main-header-home-translucent'}`}>
+          <IonToolbar className='main-home-header-toolbar-background'>
+            <IonTitle className="page-padding main-home-header-title main-home-header-title-second">
+              <Link to='/products' className='searchbar-home-btn'>
+                <h3>Search anything</h3>
+                <IonIcon icon={searchOutline} className='searchbar-home-icon'></IonIcon>
+              </Link>
+            </IonTitle>
+          </IonToolbar>
+        </IonHeader>
         <IonContent
-          fullscreen={false}
+          fullscreen={true}
           forceOverscroll={false}
           scrollEvents={true}
           onIonScroll={handleScroll}
         >
-          <div className='main-home-header-background'>
+          <IonHeader mode='ios' collapse="condense" className='custom-main-header-home-bg custom-main-header-home-condensed'>
+            <IonToolbar className='main-home-header-toolbar-background'>
+                <IonTitle className="page-padding main-home-header-title" size='large'>
+                  <IonImg
+                      src="/images/logo.webp"
+                      alt="Logo"
+                      className="main-home-img-logo"
+                  ></IonImg>
+                  <div ref={ref}>
+                    <Link to='/products' className='searchbar-home-btn'>
+                      <h3>Search anything</h3>
+                      <IonIcon icon={searchOutline} className='searchbar-home-icon'></IonIcon>
+                    </Link>
+                  </div>
+                </IonTitle>
+            </IonToolbar>
+          </IonHeader>
+          {/* <div className='main-home-header-background'>
               <IonToolbar className='main-home-header-toolbar-background'>
                 <IonImg
                     src="/images/logo.webp"
@@ -46,7 +73,7 @@ const Home2: React.FC = () => {
               <h3>Search anything</h3>
               <IonIcon icon={searchOutline} className='searchbar-home-icon'></IonIcon>
             </Link>
-          </div>
+          </div> */}
           <div className='ion-padding page-padding home-slider'>
             <Slider2 images={images} />
           </div>

@@ -127,13 +127,13 @@ const ProductDetail2: React.FC<ProductProps> = ({match}) => {
                     </div>
                 </div>}
 
-                <div className="page-padding mt-2">
+                <div className="mt-2">
                     <div className="product-detail-main-specification">
-                        <div className="product-detail-main-content-heading">
+                        <div className="page-padding product-detail-main-content-heading">
                             <h6>Specification</h6>
                         </div>
 
-                        <div className="cart-pricing-main-table">
+                        <div className="page-padding cart-pricing-main-table">
                             <table className="w-100">
                                 <thead className="w-100">
                                     <tr className="w-100">
@@ -158,11 +158,11 @@ const ProductDetail2: React.FC<ProductProps> = ({match}) => {
                     </div>
                     <CheckPincode2 slug={match.params.slug} />
                     <div className="product-detail-main-specification">
-                        <div className="product-detail-main-content-heading">
+                        <div className="page-padding product-detail-main-content-heading">
                             <h6>Pricing Information</h6>
                         </div>
 
-                        <div className="cart-pricing-main-table">
+                        <div className="page-padding cart-pricing-main-table">
                             <table className="w-100">
                                 <thead className="w-100">
                                     <tr className="w-100">
@@ -187,10 +187,10 @@ const ProductDetail2: React.FC<ProductProps> = ({match}) => {
                 
                 <MainFooter />
                 <div className="fixed-spacing-2"></div>
-                <IonItemDivider className="page-padding cart-divider-total cart-divider-total-main" slot="fixed">
+                <IonItemDivider className="cart-divider-total cart-divider-total-main" slot="fixed">
                     <IonRow className="ion-align-items-center ion-justify-content-between p-0 w-100">
                         <IonCol
-                            size="4"
+                            size="6"
                             className='text-left'
                         >
                             <IonText color="dark">
@@ -198,7 +198,7 @@ const ProductDetail2: React.FC<ProductProps> = ({match}) => {
                             </IonText>
                         </IonCol>
                         <IonCol
-                            size="4"
+                            size="6"
                             className='text-right'
                         >
                             <CartQuantityMain quantity={cart ? (cart.products.filter(item => item.id===product.id).length>0 ? cart.products.filter(item => item.id===product.id)[0].quantity : 0) : 0} loading={loading} incrementQuantity={incrementQuantity} decrementQuantity={decrementQuantity} />

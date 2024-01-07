@@ -5,7 +5,7 @@ import LoadingCard from "../LoadingCard";
 import {CategoryState} from '../../helper/types';
 import useSWRInfinite from "swr/infinite";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Virtual } from 'swiper/modules';
+import { Pagination } from 'swiper/modules';
 import CategorySliderCard from "../CategoryCard/CategorySliderCard";
 
 const PAGE_SIZE = 8;
@@ -46,7 +46,7 @@ const CategorySlider: React.FC = () => {
             <div className="category-slider">
                 {isCategoryLoading && <LoadingCard />}
                 <Swiper
-                    modules={[Pagination, Virtual]}
+                    modules={[Pagination]}
                     autoplay={false}
                     keyboard={false}
                     pagination={{
@@ -54,14 +54,13 @@ const CategorySlider: React.FC = () => {
                     }}
                     slidesPerView={2}
                     centeredSlides={false}
-                    spaceBetween={5}
+                    spaceBetween={0}
                     scrollbar={false}
                     zoom={false}
                     onSlideNextTransitionEnd={(swiper)=>((categoryData ? categoryData.flat() : []).length>0 && (swiper.activeIndex+1)>=((categoryData ? categoryData.flat() : []).length/2)) && setCategorySize(categorySize+1)}
-                    virtual
                 >
                     {
-                        (categoryData ? categoryData.flat() : []).map((item, i) => <SwiperSlide key={i} virtualIndex={i}>
+                        (categoryData ? categoryData.flat() : []).map((item, i) => <SwiperSlide key={i}>
                             <CategorySliderCard image={item.icon_image_link} name={item.name} link={`/category/${item.slug}`} />
                         </SwiperSlide>)
                     }

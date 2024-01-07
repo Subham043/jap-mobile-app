@@ -12,10 +12,10 @@ type CartQuantityType = {
 
 const CartQuantityMain: React.FC<CartQuantityType> = ({quantity, loading, incrementQuantity, decrementQuantity}) => {
 
-    return (quantity===0 ? <IonButton fill='solid' color="success" className="add-to-cart-btn" disabled={loading} onClick={()=>incrementQuantity()}>
+    return (quantity===0 ? <IonButton fill='solid' color="success" className="add-to-cart-btn" mode="md" disabled={loading} onClick={()=>incrementQuantity()}>
                 {loading ? <IonSpinner name="dots" color='light' /> : <>
                     <IonIcon slot="start" icon={cartOutline}></IonIcon>
-                    Add To Cart
+                    Add
                 </>}
             </IonButton> : 
             <div className="cart-quantity-holder">

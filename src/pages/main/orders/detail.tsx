@@ -46,13 +46,13 @@ const OrderDetail: React.FC<OrderProps> = ({match}) => {
                         <LoadingPricingTable />
                     </>: 
                     (order && <>
-                    <div className="page-padding mt-1">
+                    <div className="mt-1">
                         <div className="product-detail-main-specification">
-                            <div className="product-detail-main-content-heading">
+                            <div className="page-padding product-detail-main-content-heading">
                                 <h6>Order Information</h6>
                             </div>
 
-                            <div className="cart-pricing-main-table">
+                            <div className="page-padding cart-pricing-main-table">
                                 <table className="w-100">
                                     <thead className="w-100">
                                         <tr className="w-100">
@@ -84,7 +84,7 @@ const OrderDetail: React.FC<OrderProps> = ({match}) => {
                             </div>
                         </div>
                         <div className="product-detail-main-specification">
-                            <div className="product-detail-main-content-heading">
+                            <div className="page-padding product-detail-main-content-heading">
                                 <h6>Billing Information</h6>
                             </div>
 
@@ -119,7 +119,7 @@ const OrderDetail: React.FC<OrderProps> = ({match}) => {
                             </div>
                         </div>
                         <div className="product-detail-main-specification">
-                            <div className="product-detail-main-content-heading">
+                            <div className="page-padding product-detail-main-content-heading">
                                 <h6>Order Items</h6>
                             </div>
 
@@ -131,47 +131,55 @@ const OrderDetail: React.FC<OrderProps> = ({match}) => {
 
                         </div>
                         <div className="product-detail-main-specification">
-                            <div className="product-detail-main-content-heading">
+                            <div className="page-padding product-detail-main-content-heading">
                                 <h6>Pricing Information</h6>
                             </div>
 
                             <div className="cart-pricing-main-table">
-                                <table className="w-100">
-                                    <thead className="w-100">
-                                        <tr className="w-100">
-                                            <td className="text-left tr-price">Total Items</td>
-                                            <td className="text-right tr-price">{order.total_items}</td>
-                                        </tr>
-                                        <tr className="w-100">
-                                            <td className="text-left tr-price">Sub Total</td>
-                                            <td className="text-right tr-price">&#8377; {order.sub_total}</td>
-                                        </tr>
-                                        <tr className="w-100">
-                                            <td className="text-left tr-price">Total Discount</td>
-                                            <td className="text-right tr-price">- &#8377; {order.total_discount}</td>
-                                        </tr>
-                                        <tr className="w-100">
-                                            <td className="text-left tr-price">GST</td>
-                                            <td className="text-right tr-price">+ &#8377; {order.gst_charge}</td>
-                                        </tr>
-                                        <tr className="w-100">
-                                            <td className="text-left tr-price">Delivery Charge</td>
-                                            <td className="text-right tr-price">+ &#8377; {order.delivery_charge}</td>
-                                        </tr>
-                                        <tr className="w-100">
-                                            <td className="text-left tr-price">Cumulative Total</td>
-                                            <td className="text-right tr-price">&#8377; {(order.total_price_with_gst_delivery_charge).toFixed(2)}</td>
-                                        </tr>
-                                        <tr className="w-100">
-                                            <td className="text-left tr-price">Coupon Discount</td>
-                                            <td className="text-right tr-price">- &#8377; {order.coupon_discount}</td>
-                                        </tr>
-                                        <tr className="border-bottom-1 w-100 total-bg-table-tr">
-                                            <td className="text-left tr-price">Total</td>
-                                            <td className="text-right tr-price">&#8377; {order.total_price_with_coupon_dicount}</td>
-                                        </tr>
-                                    </thead>
-                                </table>
+                                <div className="page-padding">
+                                    <table className="w-100">
+                                        <thead className="w-100">
+                                            <tr className="w-100">
+                                                <td className="text-left tr-price">Total Items</td>
+                                                <td className="text-right tr-price">{order.total_items}</td>
+                                            </tr>
+                                            <tr className="w-100">
+                                                <td className="text-left tr-price">Sub Total</td>
+                                                <td className="text-right tr-price">&#8377; {order.sub_total}</td>
+                                            </tr>
+                                            <tr className="w-100">
+                                                <td className="text-left tr-price">Total Discount</td>
+                                                <td className="text-right tr-price">- &#8377; {order.total_discount}</td>
+                                            </tr>
+                                            <tr className="w-100">
+                                                <td className="text-left tr-price">GST</td>
+                                                <td className="text-right tr-price">+ &#8377; {order.gst_charge}</td>
+                                            </tr>
+                                            <tr className="w-100">
+                                                <td className="text-left tr-price">Delivery Charge</td>
+                                                <td className="text-right tr-price">+ &#8377; {order.delivery_charge}</td>
+                                            </tr>
+                                            <tr className="w-100">
+                                                <td className="text-left tr-price">Cumulative Total</td>
+                                                <td className="text-right tr-price">&#8377; {(order.total_price_with_gst_delivery_charge).toFixed(2)}</td>
+                                            </tr>
+                                            <tr className="w-100">
+                                                <td className="text-left tr-price">Coupon Discount</td>
+                                                <td className="text-right tr-price">- &#8377; {order.coupon_discount}</td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div className="page-padding total-bg-table-tr">
+                                    <table className="w-100">
+                                        <thead className="w-100">
+                                            <tr className="w-100">
+                                                <td className="text-left tr-price">Total</td>
+                                                <td className="text-right tr-price">&#8377; {order.total_price_with_coupon_dicount}</td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>

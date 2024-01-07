@@ -24,11 +24,6 @@ const Product: React.FC = () => {
 
   const productRef = useRef<HTMLIonInfiniteScrollElement | null>(null);
 
-  const [showSubHeader, setShowSubHeader] = useState<boolean>(false);
-  const ref = useRef<HTMLDivElement|null>(null)
-
-  const handleScroll = useCallback((ev: CustomEvent<ScrollDetail>) => ev.detail.scrollTop>=((ref && ref.current) ? ref?.current?.offsetTop : 475) ? setShowSubHeader(true) : setShowSubHeader(false), [])
-
   useEffect(() => {
     let isMounted = true
     isMounted && setHasNextPage(true);
@@ -74,12 +69,6 @@ const Product: React.FC = () => {
       <IonPage>
         <IonHeader>
           <IonToolbar mode='ios' className='main-header-background'> 
-            {/* <IonSearchbar showClearButton="focus" debounce={500} onIonInput={(ev) => searchHandler(ev)}></IonSearchbar>
-            <IonButtons slot="end">
-                <IonButton size='large' color='success' shape='round' fill='clear' className='filter-btn' onClick={()=>setIsOpen(true)}>
-                    <IonIcon icon={filterCircleOutline}></IonIcon>
-                </IonButton>
-            </IonButtons> */}
             <IonTitle className='text-center'>Our Products</IonTitle>
           </IonToolbar>
         </IonHeader>
@@ -99,12 +88,11 @@ const Product: React.FC = () => {
             <IonButtons>
                 <IonButton size='large' color='success' fill='solid' className='filter-btn' onClick={()=>setIsOpen(true)}>
                     <IonIcon icon={funnelOutline}></IonIcon>
-                    {/* <IonText>&nbsp;Filter</IonText> */}
                 </IonButton>
             </IonButtons>
           </div>
 
-          <div className='page-padding min-height-100'>
+          <div className='min-height-100'>
               
               <IonGrid className="mt-1 p-0">
                   <IonRow className="ion-align-items-center ion-justify-content-between p-0">

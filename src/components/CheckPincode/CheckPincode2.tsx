@@ -68,10 +68,10 @@ const CheckPincode2: React.FC<{
 
     return (
         <div className="product-detail-main-specification">
-          <div className="product-detail-main-content-heading">
+          <div className="page-padding product-detail-main-content-heading">
               <h6>Check Availability</h6>
           </div>
-          <div className='cart-coupon-code-container'>
+          <div className='page-padding cart-coupon-code-container'>
               <form onSubmit={pincodeForm.handleSubmit(onPincodeSubmitHandler)}>    
                   <IonRow className="ion-align-items-center ion-justify-content-between p-0 w-100">
                       <IonCol

@@ -6,7 +6,7 @@ import { segments } from "../../helper/constants";
 import LoadingCard from "../LoadingCard";
 import useSWRInfinite from "swr/infinite";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Virtual } from 'swiper/modules';
+import { Pagination } from 'swiper/modules';
 import ProductSliderCard from "../ProductCard/ProductSliderCard";
 
 const PAGE_SIZE = 8;
@@ -56,7 +56,7 @@ const ProductSegmentSlider: React.FC<CategorySlugProps & ProductSegmentProps> = 
     });
     
     return (
-        <div className="product-slider-segmentation-container pt-1 mt-1">
+        <div className="product-slider-segmentation-container pt-1">
             <div className="page-padding mb-2">
                 <div className="content-main">
                     <h2>{segmentHeading}</h2>
@@ -66,7 +66,7 @@ const ProductSegmentSlider: React.FC<CategorySlugProps & ProductSegmentProps> = 
             <div className="category-slider">
                 {isProductLoading && <LoadingCard />}
                 <Swiper
-                    modules={[Pagination, Virtual]}
+                    modules={[Pagination]}
                     autoplay={false}
                     keyboard={false}
                     slidesPerView={2}
@@ -74,14 +74,13 @@ const ProductSegmentSlider: React.FC<CategorySlugProps & ProductSegmentProps> = 
                     pagination={{
                         dynamicBullets: true,
                     }}
-                    spaceBetween={5}
+                    spaceBetween={0}
                     scrollbar={false}
                     zoom={false}
                     onSlideNextTransitionEnd={(swiper)=>((productData ? productData.flat() : []).length>0 && (swiper.activeIndex+1)>=((productData ? productData.flat() : []).length/2)) && setProductSize(productSize+1)}
-                    virtual
                 >
                     {
-                        (productData ? productData.flat() : []).map((item, i) => <SwiperSlide key={i} virtualIndex={i}>
+                        (productData ? productData.flat() : []).map((item, i) => <SwiperSlide key={i}>
                             <ProductSliderCard id={item.id} image={item.featured_image_link} weight={item.weight} name={item.name} price={item.price} discounted_price={item.discounted_price}  link={`/products/${item.slug}`} />
                         </SwiperSlide>)
                     }

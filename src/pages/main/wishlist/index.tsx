@@ -45,7 +45,7 @@ const Wishlist: React.FC = () => {
                     <LoadingPricingTable />
                 </>: (wishlist && wishlist.products.length>0) ? <>
                 
-                <div className="page-padding mt-1 mb-1">
+                <div className="mt-1 mb-1">
                     <div>
                         {
                             wishlist.products.map((item, i) => <WishlistItem {...item} deleteHandler={removeWishlistHandler} loading={loading} key={i} />)

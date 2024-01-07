@@ -7,38 +7,40 @@ const OrderItem: React.FC<CartProducts> = ({featured_image_link, name, weight, q
     const [imgLoading, setImgLoading] = useState<boolean>(true);
     return (
         <IonItemDivider className="cart-divider order-divider-item-main">
-            <IonRow className="ion-align-items-center ion-justify-content-between w-100">
-                <IonCol
-                    size="7"
-                    className='text-left'
-                >
-                    <div className='order-item-detail-wrapper'>
-                        {
-                            imgLoading &&
-                            <div className="text-center mt-1">
-                                <IonSpinner color='dark' />
-                            </div>
-                        }
-                        <IonImg alt="product" className='cart-card-item-img order-item-img' src={featured_image_link} onIonImgDidLoad={()=>setImgLoading(false)} />
-                        <IonText color="dark" class='order-item-text'>
-                            <p className="cart-card-item-text order-item-name">{name}</p>
-                            <p className="cart-card-item-price">&#8377;{discounted_price} / {weight}</p>
-                        </IonText>
-                    </div>
-                </IonCol>
-                <IonCol
-                    size="3"
-                    className='text-center'
-                >
-                    <p className='order-detail-price-text'>Qty: {quantity}</p>
-                </IonCol>
-                <IonCol
-                    size="2"
-                    className='text-right'
-                >
-                    <p className='order-detail-price-text'><b>&#8377;{total_quantity_price}</b></p>
-                </IonCol>
-            </IonRow>
+            <div className="page-padding w-100">
+                <IonRow className="ion-align-items-center ion-justify-content-between w-100">
+                    <IonCol
+                        size="7"
+                        className='text-left'
+                    >
+                        <div className='order-item-detail-wrapper'>
+                            {
+                                imgLoading &&
+                                <div className="text-center mt-1">
+                                    <IonSpinner color='dark' />
+                                </div>
+                            }
+                            <IonImg alt="product" className='cart-card-item-img order-item-img' src={featured_image_link} onIonImgDidLoad={()=>setImgLoading(false)} />
+                            <IonText color="dark" class='order-item-text'>
+                                <p className="cart-card-item-text order-item-name">{name}</p>
+                                <p className="cart-card-item-price">&#8377;{discounted_price} / {weight}</p>
+                            </IonText>
+                        </div>
+                    </IonCol>
+                    <IonCol
+                        size="3"
+                        className='text-center'
+                    >
+                        <p className='order-detail-price-text'>Qty: {quantity}</p>
+                    </IonCol>
+                    <IonCol
+                        size="2"
+                        className='text-right'
+                    >
+                        <p className='order-detail-price-text'><b>&#8377;{total_quantity_price}</b></p>
+                    </IonCol>
+                </IonRow>
+            </div>
         </IonItemDivider>
     );
 }

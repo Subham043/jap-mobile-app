@@ -99,9 +99,9 @@ const Cart2: React.FC = () => {
                 </>:
                 (cart && cart.products.length>0) ? <>
                 
-                  <div className="page-padding mt-1 mb-1">
+                  <div className="mt-1 mb-1">
                         <div className="product-detail-main-specification">
-                            <div className="product-detail-main-content-heading">
+                            <div className="page-padding product-detail-main-content-heading">
                                 <h6>Cart Item</h6>
                             </div>
                             <div>
@@ -111,55 +111,63 @@ const Cart2: React.FC = () => {
                             </div>
                         </div>
                         <div className="product-detail-main-specification">
-                            <div className="product-detail-main-content-heading">
+                            <div className="page-padding product-detail-main-content-heading">
                                 <h6>Coupon</h6>
                             </div>
                             <CouponCode2 couponForm={couponForm} />
                         </div>
                         <div className="product-detail-main-specification">
-                            <div className="product-detail-main-content-heading">
+                            <div className="page-padding product-detail-main-content-heading">
                                 <h6>Pricing Information</h6>
                             </div>
                             <div className="cart-pricing-main-table">
-                                <table className="w-100">
-                                    <thead className="w-100">
-                                        <tr className="w-100">
-                                            <td className="text-left tr-price">Total Items:</td>
-                                            <td className="text-right tr-price">{cart.total_items}</td>
-                                        </tr>
-                                        <tr className="w-100">
-                                            <td className="text-left tr-price">Sub Total:</td>
-                                            <td className="text-right tr-price">&#8377; {cart.sub_total}</td>
-                                        </tr>
-                                        <tr className="w-100">
-                                            <td className="text-left tr-price">Total Discount:</td>
-                                            <td className="text-right tr-price">- &#8377; {cart.total_discount}</td>
-                                        </tr>
-                                        <tr className="w-100">
-                                            <td className="text-left tr-price">GST:</td>
-                                            <td className="text-right tr-price">+ &#8377; {cart.gst_charge}</td>
-                                        </tr>
-                                        <tr className="w-100">
-                                            <td className="text-left tr-price">Delivery Charge:</td>
-                                            <td className="text-right tr-price">+ &#8377; {cart.delivery_charge}</td>
-                                        </tr>
-                                        <tr className="w-100">
-                                            <td className="text-left tr-price font-bold">Cumulative Total:</td>
-                                            <td className="text-right tr-price font-bold">&#8377; {(cart.total_price_with_gst_delivery_charge).toFixed(2)}</td>
-                                        </tr>
-                                        <tr className="w-100">
-                                            <td className="text-left tr-price">Coupon Discount:</td>
-                                            <td className="text-right tr-price">- &#8377; {cart.coupon_discount}</td>
-                                        </tr>
-                                        <tr className="border-bottom-1 w-100 total-bg-table-tr">
-                                            <td className="text-left tr-price font-bold">Total:</td>
-                                            <td className="text-right tr-price font-bold">&#8377; {cart.total_price_with_coupon_dicount}</td>
-                                        </tr>
-                                    </thead>
-                                </table>
+                                <div className="page-padding">
+                                    <table className="w-100">
+                                        <thead className="w-100">
+                                            <tr className="w-100">
+                                                <td className="text-left tr-price">Total Items:</td>
+                                                <td className="text-right tr-price">{cart.total_items}</td>
+                                            </tr>
+                                            <tr className="w-100">
+                                                <td className="text-left tr-price">Sub Total:</td>
+                                                <td className="text-right tr-price">&#8377; {cart.sub_total}</td>
+                                            </tr>
+                                            <tr className="w-100">
+                                                <td className="text-left tr-price">Total Discount:</td>
+                                                <td className="text-right tr-price">- &#8377; {cart.total_discount}</td>
+                                            </tr>
+                                            <tr className="w-100">
+                                                <td className="text-left tr-price">GST:</td>
+                                                <td className="text-right tr-price">+ &#8377; {cart.gst_charge}</td>
+                                            </tr>
+                                            <tr className="w-100">
+                                                <td className="text-left tr-price">Delivery Charge:</td>
+                                                <td className="text-right tr-price">+ &#8377; {cart.delivery_charge}</td>
+                                            </tr>
+                                            <tr className="w-100">
+                                                <td className="text-left tr-price font-bold">Cumulative Total:</td>
+                                                <td className="text-right tr-price font-bold">&#8377; {(cart.total_price_with_gst_delivery_charge).toFixed(2)}</td>
+                                            </tr>
+                                            <tr className="w-100">
+                                                <td className="text-left tr-price">Coupon Discount:</td>
+                                                <td className="text-right tr-price">- &#8377; {cart.coupon_discount}</td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div className="page-padding total-bg-table-tr">
+                                    <table className="w-100">
+                                        <thead className="w-100">
+                                            <tr className="w-100">
+                                                <td className="text-left tr-price font-bold">Total:</td>
+                                                <td className="text-right tr-price font-bold">&#8377; {cart.total_price_with_coupon_dicount}</td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                        <div className="mb-2">
+                        <div className="page-padding mb-2">
                             <div className="cart-policy-container">
                                 {
                                     legal_pages.map((item, i) => <IonItem className="cart-policy-item" lines="full" detail={true} onClick={()=>loadPage(item.link)} key={i}>
@@ -173,7 +181,7 @@ const Cart2: React.FC = () => {
 
                   
 
-                  <IonItemDivider className="cart-checkout-btn-main-container page-padding" slot="fixed">
+                  <IonItemDivider className="cart-checkout-btn-main-container" slot="fixed">
                       <IonRow className="ion-align-items-center ion-justify-content-center p-0 w-100">
                           <IonCol
                               size="12"

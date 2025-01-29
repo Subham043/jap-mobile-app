@@ -43,7 +43,7 @@ export const api_routes: api_routes = {
     place_order: '/api/v1/order/place',
     place_order_paginate: '/api/v1/order/placed/paginate',
     place_order_detail: '/api/v1/order/placed/detail',
-    place_order_payment_verify: "/api/v1/order/verify-payment/",
+    place_order_payment_verify: "/api/v1/order/verify-payment",
     latest_order_billing_info: '/api/v1/order/latest-billing-info',
     enquiry: '/api/v1/enquiry/create',
     contact: '/api/v1/contact/create',

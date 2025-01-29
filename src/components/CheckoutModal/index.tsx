@@ -23,7 +23,9 @@ import { api_routes } from "../../helper/routes";
 import Input from "../Input";
 import useSWR from 'swr'
 import { useAuth } from "../../context/AuthProvider";
-import { OrderBillinInfo } from "../../helper/types";
+import { Order, OrderBillinInfo } from "../../helper/types";
+import { Checkout } from 'capacitor-razorpay';
+import { ENV } from "../../env/env";
 
 type Props = {
     isOpen: boolean;
@@ -157,6 +159,70 @@ const CheckoutModal: React.FC<Props> = ({isOpen, setIsOpen, couponForm}) => {
       });
     }
 
+    const payWithRazorpay = async (order: Order) =>{
+      const options = {
+        key: ENV.RAZORPAY_KEY_ID,
+        amount: (order.total_price_with_coupon_dicount * 100).toString(), // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        currency: "INR",
+        name: "JAP",
+        description: "Payment For Order Reciept: " + order.receipt,
+        image: "https://jap.bio/assets/img/logo/new-logo.webp",
+        order_id: order.razorpay_order_id ? order.razorpay_order_id : '',
+        prefill: {
+          name: order.billing_first_name + ' ' + order.billing_last_name,
+          email: order.billing_email,
+          contact: (order.billing_phone).toString(),
+        },
+        theme: {
+          color: '#699c47'
+        }
+      };
+      try {
+        let data = (await Checkout.open(options));
+        const razorpay_response = data.response as any
+        verifyOnlinePayment({razorpay_order_id: razorpay_response.razorpay_order_id, razorpay_payment_id: razorpay_response.razorpay_payment_id, razorpay_signature: razorpay_response.razorpay_signature, receipt: order.receipt});
+      } catch (error: any) {
+        toastError("Payment Gateway Error");
+      }
+    }
+
+    const verifyOnlinePayment = async(data:{razorpay_order_id:string, razorpay_payment_id:string, razorpay_signature:string, receipt:string | null}) => {
+      setLoadingCheckout(true);
+      try {
+        await present({
+          message: 'Verifying Payment...',
+        });
+        const response = await axiosPublic.post(api_routes.place_order_payment_verify, {...data});
+        toastSuccess(response.data.message);
+        reset({
+          billing_first_name: "",
+          billing_last_name: "",
+          billing_email: "",
+          billing_phone: "",
+          billing_country: "",
+          billing_state: "",
+          billing_city: "",
+          billing_pin: "",
+          billing_address_1: "",
+          mode_of_payment: "",
+        });
+        couponForm.setValue('coupon_code', '');
+        await updateCart([])
+        history.push({
+          pathname: `/orders/${data.receipt}`,
+          state: {success: true}
+        })
+        setIsOpen(false)
+      } catch (error: any) {
+        if (error?.response?.data?.message) {
+          toastError(error?.response?.data?.message);
+        }
+      } finally {
+        setLoadingCheckout(false);
+        await dismiss()
+      }
+    }
+
     const {
         handleSubmit,
         register,
@@ -206,7 +272,8 @@ const CheckoutModal: React.FC<Props> = ({isOpen, setIsOpen, couponForm}) => {
             })
             setIsOpen(false)
           }else{
-            loadRazorpay(response.data.order.payment_url, response.data.order.receipt);
+            payWithRazorpay(response.data.order);
+            // loadRazorpay(response.data.order.payment_url, response.data.order.receipt);
           }
         } catch (error: any) {
           if (error?.response?.data?.message) {
